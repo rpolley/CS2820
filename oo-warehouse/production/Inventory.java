@@ -1,4 +1,4 @@
-package inventory;
+package production;
 /**
  *
  * @author Fan Gao
