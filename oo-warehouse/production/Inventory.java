@@ -31,10 +31,10 @@ public class Inventory {
     }
 
 
-     //This method read a txt file, with items information
-     //then put into an arraylist, each element is an item
-     //each item has name, amount, existence, shelf, point,...blablabla...
-     /**
+     /*This method read a txt file, with items information
+      *then put into an arraylist, each element is an item
+      *each item has name, amount, existence, shelf, point,...blablabla...
+      *
       * @param nothing, read the file and acquire the inventory information
       *
       */
@@ -95,10 +95,10 @@ public class Inventory {
 		}
     }
 
-        // This method check existence,
-    	// if exist isExist is true
-    	// else false
-        /**
+        /* This method check existence,
+    	 * if exist isExist is true
+    	 * else false
+         *
          * @param itemName
          * @return boolean, if the item's Amount =0, return false;
          *                  if amount != 0, return true
@@ -163,7 +163,7 @@ public class Inventory {
     	return isExist;
     }
 
-
+     
      //This method can remove item from the inventory
      //first check if the item is in stock
       //if not exist, say not found
