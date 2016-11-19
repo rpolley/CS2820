@@ -107,8 +107,8 @@ public class Robot extends RobotScheduler {
 	}
 
 	// gets the batteryLife
-	public double getBatteryLife(Robot i) {
-		return i.batterylife;
+	public double getBatteryLife() {
+		return this.batterylife;
 	}
 	//
 }

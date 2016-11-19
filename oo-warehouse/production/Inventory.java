@@ -31,10 +31,10 @@ public class Inventory {
     }
 
 
-     //This method read a txt file, with items information
-     //then put into an arraylist, each element is an item
-     //each item has name, amount, existence, shelf, point,...blablabla...
-     /**
+     /*This method read a txt file, with items information
+      *then put into an arraylist, each element is an item
+      *each item has name, amount, existence, shelf, point,...blablabla...
+      *
       * @param nothing, read the file and acquire the inventory information
       *
       */
@@ -95,10 +95,10 @@ public class Inventory {
 		}
     }
 
-        // This method check existence,
-    	// if exist isExist is true
-    	// else false
-        /**
+        /* This method check existence,
+    	 * if exist isExist is true
+    	 * else false
+         *
          * @param itemName
          * @return boolean, if the item's Amount =0, return false;
          *                  if amount != 0, return true
@@ -163,12 +163,12 @@ public class Inventory {
     	return isExist;
     }
 
-
-     //This method can remove item from the inventory
-     //first check if the item is in stock
-      //if not exist, say not found
-      //if exist, let the item's amount -1
-      /**
+     
+      /*This method can remove item from the inventory
+       *first check if the item is in stock
+       *if not exist, say not found
+       *if exist, let the item's amount -1
+       *
        * @param itemName
        * its gonna remove the item is called, subtract by 1 in Amount
        *
@@ -200,10 +200,10 @@ public class Inventory {
     	outPutFile();
     }
 
-     //This method add item to inventory
-     //if item already in inventory, amount +1
-     //if not in list, make new item id, let amount =1
-     /**
+     /*This method add item to inventory
+      *if item already in inventory, amount +1
+      *if not in list, make new item id, let amount =1
+      *
       * @param itemName
       * its gonna add the called item into the inventory, plus the Amount by 1
       *
@@ -235,9 +235,9 @@ public class Inventory {
     	outPutFile();
     }
 
-     //This method write the modified inventory list into a new file.txt
-     //output a new file with refreshed list
-     /**
+     /* This method write the modified inventory list into a new file.txt
+      * output a new file with refreshed list
+      *
       * @param nothing, but write all the "inventory" into a new file
       *
       */
@@ -268,8 +268,8 @@ public class Inventory {
 		}
     }
 
-    //main method to test for inventory
-    /**
+    /*main method to test for inventory
+     *
      * @param args
      */
     public static void main(String[] args) {
