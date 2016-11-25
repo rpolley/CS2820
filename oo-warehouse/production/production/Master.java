@@ -26,11 +26,11 @@ public class Master {
 	private Collection<FrameListener> subscribedListeners;
 	private RobotScheduler robots;
 	private int robotCount;
-	private Belts belts;
+	private MockBelt belts;
 	private Inventory inventory;
 	private Orders orders;
 	private Floor floor;
-	private Visualizer visualizer;
+	private MockVisualizer visualizer;
 	private FrameListener visualizerUpdater;//used to make sure that visualizer draws at the end of the frame
 	private List<Map<String,Object>> initialInventory;
 	//speed of the simulation relative to real time
@@ -52,7 +52,7 @@ public class Master {
 	/*
 	 * @author rpolley
 	 */
-	public Belts getBelts() {
+	public MockBelt getBelts() {
 		return belts;
 	}
 	
@@ -80,7 +80,7 @@ public class Master {
 	/*
 	 * @author rpolley
 	 */
-	public Visualizer getVisualizer() {
+	public MockVisualizer getVisualizer() {
 		return visualizer;
 	}
 	
@@ -165,7 +165,7 @@ public class Master {
 		this.inventory = new Inventory(initialInventory);
 		this.orders = new Orders();
 		this.floor = new Floor(10,10,1);
-		this.visualizer = new Visualizer();
+		this.visualizer = new MockVisualizer();
 		//this.visualizerUpdater = this.visualizer;
 	}
 	/*

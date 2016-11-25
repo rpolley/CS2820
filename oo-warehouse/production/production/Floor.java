@@ -85,7 +85,7 @@ public class Floor {
 		
 		// put belt along left wall
 		for(int i = 0; i < rows; i++){
-			layout[i][0] = new Belts(i, 0);
+			layout[i][0] = new MockBelt(i, 0);
 			Point point = new Point(i, 0);
 			this.BeltLocs.add(point);
 		}
