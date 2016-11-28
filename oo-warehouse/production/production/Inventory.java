@@ -123,8 +123,8 @@ public class Inventory {
     	
     	int x = Integer.parseInt(sx);
     	int y = Integer.parseInt(sy);
-    	System.out.println(x);        //!!!!! just for test, print integer of row and col
-    	System.out.println(y);
+    	//System.out.println(x);        //!!!!! just for test, print integer of row and col
+    	//System.out.println(y);
     	Point a = new Point(x,y);
     	return a;
     }
@@ -134,9 +134,9 @@ public class Inventory {
          * check existence with Qty
     	 * if exist isExist is true
     	 * else false
-	 *
-         * @author Fan Gao
+	 * @author Fan Gao
          * @param itemName
+	 * @param Qty
          * @return boolean, if the item's Amount <= qty, return false; 
          *                  else, return true
          *
@@ -180,6 +180,7 @@ public class Inventory {
        *if exist, let the item's amount - qty
        *
        * @param itemName
+       * @param Qty
        * its gonna remove the item is called, subtract by qty in Amount
        *
        */
@@ -223,6 +224,7 @@ public class Inventory {
       *if not in list, make new item id, let amount = qty
       *
       * @param itemName
+      * @param Qty
       * its gonna add the called item into the inventory, plus the Amount by qty
       *
       */
