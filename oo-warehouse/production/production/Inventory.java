@@ -94,53 +94,63 @@ public class Inventory {
 			e.printStackTrace();
 		}
     }
-
-        /* This method check existence,
-    	 * if exist isExist is true
-    	 * else false
-         *
-         * @param itemName
-         * @return boolean, if the item's Amount =0, return false;
-         *                  if amount != 0, return true
-         *
-         */
-    public boolean checkExist(String itemName){
-
-    	for (int i = 0; i < inventory.size(); i++)
+	
+   /**
+     * use Point class to get the position of the item,
+     * input the itemName, then get the position
+     * will  return the position as a point
+     * 
+     * @param itemName
+     * @return Point(position of the item)
+     */
+    public Point readPosition(String itemName){
+    	int i;
+    	String pos = "";
+    	for (i = 0; i < inventory.size(); i++)
 		{
     		Map<String, Object> newItem = new HashMap<String, Object>();
     		newItem = inventory.get(i);
-			if (itemName.equals( newItem.get("Name").toString())){
-				int a = Integer.parseInt((String) newItem.get("Amount"));
-				//isInList = true;
-				if (a != 0){
-					isExist = true;
-					break;
-				}
-				else{
-					isExist = false;
-				}
-			}
-			else{
-				isExist = false;
+			if (itemName.equals(newItem.get("Name").toString())){
+				pos = newItem.get("Position").toString();
 			}
 		}
-    	return isExist;
+    	
+    	String sx = (pos.split(","))[0];
+    	String sy = (pos.split(","))[1];
+    	
+    	sx = sx.substring(1, sx.length());
+    	sy = sy.substring(0, sy.length()-1);
+    	
+    	int x = Integer.parseInt(sx);
+    	int y = Integer.parseInt(sy);
+    	System.out.println(x);        //!!!!! just for test, print integer of row and col
+    	System.out.println(y);
+    	Point a = new Point(x,y);
+    	return a;
     }
 
-/**
-*@author Chaitanya Kovuri
-*previous checkExist() method did not have Quantity as a parameter.
-* So I added it under a similar method to make sure I did not modify your
-* original code.
-* @param itemName is the Item you want to check in the inventory database.
-* @param Qty is the desired Quantity
-* Also an advice. I think using a HashMap<String, Integer> where the key is the
-* itemName and the VALUE= item's Quantity. This would make the check method
-* more efficient because you can just use something like HashMap.get("ItemName") 
-*/
 
-		public boolean checkExistWithQty(String itemName, int Qty){
+       /**
+         * check existence with Qty
+    	 * if exist isExist is true
+    	 * else false
+	 *
+         * @author Fan Gao
+         * @param itemName
+         * @return boolean, if the item's Amount <= qty, return false; 
+         *                  else, return true
+         *
+          * @author Chaitanya Kovuri
+          * previous checkExist() method did not have Quantity as a parameter.
+          * So I added it under a similar method to make sure I did not modify your
+          * original code.
+          * @param itemName is the Item you want to check in the inventory database.
+          * @param Qty is the desired Quantity
+          * Also an advice. I think using a HashMap<String, Integer> where the key is the
+          * itemName and the VALUE= item's Quantity. This would make the check method
+          * more efficient because you can just use something like HashMap.get("ItemName") 
+          */
+    public boolean checkExistWithQty(String itemName, int Qty){
 
     	for (int i = 0; i < inventory.size(); i++)
 		{
@@ -148,7 +158,7 @@ public class Inventory {
     		newItem = inventory.get(i);
 			if (itemName.equals( newItem.get("Name").toString())){
 				int a = Integer.parseInt((String) newItem.get("Amount"));
-				if (a == Qty){ //to check if Inventory has both the Item and Qty the customer wants.
+				if (a >= Qty){ //to check if Inventory has both the Item and Qty the customer wants.
 					isExist = true;
 					break;
 				}
@@ -157,7 +167,7 @@ public class Inventory {
 				}
 			}
 			else{
-				isExist = false;
+				isExist = false;  
 			}
 		}
     	return isExist;
@@ -167,48 +177,56 @@ public class Inventory {
       /*This method can remove item from the inventory
        *first check if the item is in stock
        *if not exist, say not found
-       *if exist, let the item's amount -1
+       *if exist, let the item's amount - qty
        *
        * @param itemName
-       * its gonna remove the item is called, subtract by 1 in Amount
+       * its gonna remove the item is called, subtract by qty in Amount
        *
        */
-    public void removeItem(String itemName){
-    	if (checkExist(itemName) == true){
+    public void removeItem(String itemName, int Qty){
+    	if (checkExistWithQty(itemName, Qty) == true){
     		int i;
     		//System.out.println(checkExist(itemName));
         	for (i = 0; i < inventory.size(); i++)
     		{
         		Map<String, Object> removedItem = new HashMap<String, Object>();
         		removedItem = inventory.get(i);
-
+        		
     			if (itemName.equals(removedItem.get("Name").toString())){
     				int a = Integer.parseInt((String) removedItem.get("Amount"));
-    				removedItem.put("Amount",a-1);
-
-    				if (a-1 < 1){
+    				removedItem.put("Amount",a- Qty);
+    				
+    				if (a-Qty < 1){
     					removedItem.put("Existence","N");
     				}
     			}
     		}
     	}
     	else{
-    		System.out.println("Item not exist");
-    		checkExist(itemName);
+            System.out.println("Item "+ itemName + " is not avaible.");
+            for (int i = 0; i < inventory.size(); i++)
+    		{
+        		Map<String, Object> removedItem = new HashMap<String, Object>();
+        		removedItem = inventory.get(i);
+        		
+    			if (itemName.equals(removedItem.get("Name").toString())){
+    			    System.out.println("Since item "+ itemName + "'s amout is not enough, try less amount.");  
+                        }                  
+                }
     	}
-
-    	outPutFile();
+    	outPutFile();	
     }
 
+	
      /*This method add item to inventory
-      *if item already in inventory, amount +1
-      *if not in list, make new item id, let amount =1
+      *if item already in inventory, amount + qty
+      *if not in list, make new item id, let amount = qty
       *
       * @param itemName
-      * its gonna add the called item into the inventory, plus the Amount by 1
+      * its gonna add the called item into the inventory, plus the Amount by qty
       *
       */
-    public void addItem(String itemName){
+  public void addItem(String itemName, int Qty){
     	boolean InList = false;
     	int i;
     	for (i = 0; i < inventory.size(); i++)
@@ -218,7 +236,7 @@ public class Inventory {
 			if (itemName.equals(newItem.get("Name").toString())){
 				int a = Integer.parseInt((String) newItem
 						.get("Amount"));
-				newItem.put("Amount",a+1);
+				newItem.put("Amount",a+Qty);
 				newItem.put("Existence","Y");
 				InList = true;
 			}
@@ -227,14 +245,15 @@ public class Inventory {
     		Map<String, Object> newItem = new HashMap<String, Object>();
     		newItem.put("Id", i+1);
     		newItem.put("Name",itemName);
-    		newItem.put("Amount",1);
+    		newItem.put("Amount",Qty);
     		newItem.put("Existence","Y");
     		inventory.add(newItem);
     	}
+    	
+    	outPutFile();  
+    } 
 
-    	outPutFile();
-    }
-
+	
      /* This method write the modified inventory list into a new file.txt
       * output a new file with refreshed list
       *
@@ -279,12 +298,13 @@ public class Inventory {
 
 	Inventory a = new Inventory(listA);
 	a.data();
-	 //a.checkExist("K");
 
-	a.addItem("Z");
-	a.addItem("H");
-	a.addItem("A");
-	a.addItem("F");
-	a.removeItem("K");
+	a.addItem("Z",3);
+	a.addItem("A",5);
+	a.addItem("F",16);
+	a.removeItem("K",4);
+        a.removeItem("Shoe", 2);
+        a.readPosition("A");
+        a.readPosition("G");
 	}
 }
