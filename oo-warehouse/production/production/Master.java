@@ -141,7 +141,10 @@ public class Master {
 			l.onFrame();
 		}
 		//update the visualizer after everything else has run
-		visualizerUpdater.onFrame();
+		//
+		if(visualizerUpdater!=null){
+			visualizerUpdater.onFrame();
+		}
 		time++;
 	}
 	/*
@@ -166,7 +169,7 @@ public class Master {
 		this.orders = new Orders();
 		this.floor = new Floor(10,10,1);
 		this.visualizer = new MockVisualizer();
-		//this.visualizerUpdater = this.visualizer;
+		this.visualizerUpdater = this.visualizer.updater;
 	}
 	/*
 	 * @author rpolley

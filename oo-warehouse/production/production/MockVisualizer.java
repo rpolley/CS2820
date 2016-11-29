@@ -35,7 +35,11 @@ public class MockVisualizer{
 	     frame.pack();
 	        frame.setVisible(true);
 	}
-	
+	public FrameListener updater = new FrameListener(){
+		public void onFrame(){
+			
+		}
+	};
     private static void initialize() {       
         /*
         for(int x = 0; x < floor.length; x++){

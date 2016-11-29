@@ -7,7 +7,7 @@ package production;
  */
 
 public class Bin {
-	Order Order;
+	Orders Order;
 	boolean finished;
 	public Bin(){
 		Order = null; finished = false;}
@@ -15,9 +15,9 @@ public class Bin {
 		return finished;}
 	public void setFinished(){
 		finished = true;}
-	public Order getOrder(){
+	public Orders getOrder(){
 		return Order;}
-	public void setOrder(order o){
+	public void setOrder(Orders o){
 		Order = o;}	
 	public String toString(){
 		return "Bin";
