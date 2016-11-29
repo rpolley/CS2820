@@ -8,10 +8,10 @@ package production;
 
 public class Charger extends DrivableSpaceType {
 	
-	public Charger(int x, int y){
+	public Charger(int row, int col){
 		this.name = "Charger";
-		this.x = x;
-		this.y = y;
+		this.row = row;
+		this.col = col;
 		this.CanDriveOn = true;
 		this.HasRobot = true;	// assume the robot starts here
 	}

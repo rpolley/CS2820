@@ -10,10 +10,10 @@ public class ShelfSpace extends DrivableSpaceType {
 
 	public boolean HasShelf;
 	
-	public ShelfSpace(int x, int y){
+	public ShelfSpace(int row, int col){
 		this.name = "Shelf Space";
-		this.x = x;
-		this.y = y;
+		this.row = row;
+		this.col = col;
 		this.HasShelf = true;
 		this.CanDriveOn = false;
 		this.HasRobot = false;
@@ -22,6 +22,5 @@ public class ShelfSpace extends DrivableSpaceType {
 	public boolean CanDriveOn(){
 		return !HasShelf;
 	}
-	
 	
 }

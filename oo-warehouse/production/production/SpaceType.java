@@ -10,8 +10,8 @@ package production;
 public abstract class SpaceType {
 	
 	public String name;
-	public int x;
-	public int y;
+	public int row;
+	public int col;
 	public boolean CanDriveOn;
 
 }

@@ -8,10 +8,10 @@ package production;
 
 public class Pack extends DrivableSpaceType {
 	
-	public Pack(int x, int y){
+	public Pack(int row, int col){
 		this.name = "Packing Station";
-		this.x = x;
-		this.y = y;
+		this.row = row;
+		this.col = col;
 		this.CanDriveOn = true;
 		this.HasRobot = false;
 	}

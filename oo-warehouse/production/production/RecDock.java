@@ -8,10 +8,10 @@ package production;
 
 public class RecDock extends DrivableSpaceType {
 	
-	public RecDock(int x, int y){
+	public RecDock(int row, int col){
 		this.name = "Receiving Dock";
-		this.x = x;
-		this.y = y;
+		this.row = row;
+		this.col = col;
 		this.CanDriveOn = true;
 		this.HasRobot = false;
 	}

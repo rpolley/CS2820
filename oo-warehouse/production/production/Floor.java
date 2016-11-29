@@ -39,8 +39,6 @@ public class Floor {
 		int HighwayWidth;
 		int AmtChargers;
 		
-		// this.ChargerLocs = new ArrayList<Point>();
-		
 		// If not enough room for required objects:
 		
 		if(rows < 4){
