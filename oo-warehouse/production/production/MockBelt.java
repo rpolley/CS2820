@@ -5,7 +5,10 @@ import java.awt.Point;
 import java.util.*;
 	/**
 	 * 
-	 * @author Anani
+	 * @author rpolley
+	 * simulates the belts as a black hole
+	 * you just throw things in and forget about them
+	 * nothing happens to them however
 	 *
 	 */
 public class MockBelt{
