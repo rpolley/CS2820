@@ -4,7 +4,7 @@ package production;
  * @author Cole Petersen
  * 
  * Shelf object:
- * Represents shelves themselves.
+ * Represents shelves themselves. 
  */
 
 public class Shelf {
