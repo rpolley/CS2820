@@ -5,20 +5,25 @@ package production;
  *
  */
 public class Robot extends RobotScheduler {
-	int x;
-	int y;
+	int row;
+	int col;
 	boolean hasShelves = false;
 	boolean inUse = false;
 	double batterylife = 1.0;
 	boolean atCharger = false;
+	/*
+	 * does what 'part1' used to, I think
+	 * 
+	 */
+	int state = 0;
 /**
  * This just puts new robots down
  * @param startingx
  * @param startingy
  */
 	public Robot(int startingx, int startingy) {
-		this.x = startingx;
-		this.y = startingy;
+		this.row = startingx;
+		this.col = startingy;
 		hasShelves = false;
 		inUse=false;
 		int[] temp = new int[2];
@@ -59,14 +64,14 @@ public class Robot extends RobotScheduler {
 	 *
 	 */
 	public void move(int toX, int toY) {
-		if (((x - toX) + (y - toY) == 1) || ((x - toX) + (y - toY) == -1)) {
+		if (((row - toX) + (col - toY) == 1) || ((row - toX) + (col - toY) == -1)) {
 			if (isLegalMove(toX, toY)) {
 				// unfinished
 				int[] newloc = new int[2];
 				newloc[0] = toX;
 				newloc[1] = toY;
-				this.x=toX;
-				this.y=toY;
+				this.row=toX;
+				this.col=toY;
 				RobotLocs.remove(this);
 				RobotLocs.put(this, newloc);
 				//System.out.println(this.x);
@@ -114,15 +119,15 @@ public class Robot extends RobotScheduler {
 	* @author James Vipond
 	* @return x position of the robot
 	*/
-	public int getX(){
-		return this.x;
+	public int getRow(){
+		return this.row;
 	}
 	
 	/**
 	* @param James Vipond
 	* @return y position of the robot
 	*/
-	public int getY(){
-		return this.y;
+	public int getColumn(){
+		return this.col;
 	}
 }

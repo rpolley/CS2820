@@ -158,7 +158,8 @@ public class Visualizer {
     	
     	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
     		Robot oldRobot = oldRobotIter.next();
-    		int[] coordinates = {oldRobot.getX(),oldRobot.getY()};
+    		int[] coordinates = {oldRobot.row,oldRobot.col};
+    		int[] coordinates = {oldRobot.getRow(),oldRobot.getCol()};
     		labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());    		
     	}
     	
@@ -174,7 +175,8 @@ public class Visualizer {
     	
     	while(robotIter.hasNext()){
     		Robot robot = robotIter.next();
-    		int[] coordinates = {robot.getX(),robot.getY()};
+    		int[] coordinates = {robot.row,robot.col};
+    		int[] coordinates = {robot.getRow(),robot.getCol()};
     		if (robot.isCarryingShelves()){
     			labelGrid.get(coordinates).setIcon(robotShelfIcon);
     		}else{
