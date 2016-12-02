@@ -3,7 +3,7 @@ package production;
 /*
  * @author Cole Petersen
  * 
- * Floor Space (highway) object
+ * Floor Space (highway) object 
  */
 
 public class FloorSpace extends DrivableSpaceType {
