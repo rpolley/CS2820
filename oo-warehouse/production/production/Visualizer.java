@@ -23,6 +23,7 @@ public class Visualizer {
 	private static HashMap<Robot, int[]> oldRobots;
 	private static HashMap<Integer,int[]> oldShelves;
 	private static final ImageIcon beltIcon = new ImageIcon("res/Belt.png");
+	private static final ImageIcon floorTileIcon = new ImageIcon("res/Highway.png");
 	private static final ImageIcon highwayIcon = new ImageIcon("res/Highway.png");
 	private static final ImageIcon pickerIcon = new ImageIcon("res/Picker.png");
 	private static final ImageIcon packerIcon = new ImageIcon("res/Packer.png");
@@ -73,10 +74,10 @@ public class Visualizer {
         			labelGrid.put(coordinates,new JLabel(highwayIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
-        	//	}else if(here instanceof Belt){
-        	//		labelGrid.put({x,y},newJLabel(beltIcon))
-    		//		panel.add(labelGrid.get(coordinates));
-    		//		continue;
+        		}else if(here instanceof MockBelt){
+        			labelGrid.put(coordinates,new JLabel(beltIcon));
+    				panel.add(labelGrid.get(coordinates));
+    				continue;
         		}else if(here instanceof Charger){
         			labelGrid.put(coordinates,new JLabel(chargerIcon));
     				panel.add(labelGrid.get(coordinates));
@@ -94,7 +95,7 @@ public class Visualizer {
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else{
-        			labelGrid.put(coordinates,new JLabel(highwayIcon));
+        			labelGrid.put(coordinates,new JLabel(floorTileIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}
@@ -157,7 +158,7 @@ public class Visualizer {
     	
     	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
     		Robot oldRobot = oldRobotIter.next();
-    		int[] coordinates = {oldRobot.x,oldRobot.y};
+    		int[] coordinates = {oldRobot.getX(),oldRobot.getY()};
     		labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());    		
     	}
     	
@@ -173,7 +174,7 @@ public class Visualizer {
     	
     	while(robotIter.hasNext()){
     		Robot robot = robotIter.next();
-    		int[] coordinates = {robot.x,robot.y};
+    		int[] coordinates = {robot.getX(),robot.getY()};
     		if (robot.isCarryingShelves()){
     			labelGrid.get(coordinates).setIcon(robotShelfIcon);
     		}else{
