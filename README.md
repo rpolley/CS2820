@@ -1,1 +1,1 @@
-commit to https://github.com/rpolley/CS2820 instead of here
+home of group A4's group project for CS2820 object oriented
