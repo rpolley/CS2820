@@ -71,31 +71,38 @@ public class Visualizer {
         		Object here = floor[x][y];
         		int[] coordinates = {x,y};
         		if (here instanceof FloorSpace){
-        			labelGrid.put(coordinates,new JLabel(highwayIcon));
+        			labelGrid.put(coordinates,new JLabel(floorTileIcon));
+        			initialSetup.put(coordinates,new JLabel(floorTileIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else if(here instanceof MockBelt){
         			labelGrid.put(coordinates,new JLabel(beltIcon));
+        			initialSetup.put(coordinates,new JLabel(beltIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else if(here instanceof Charger){
         			labelGrid.put(coordinates,new JLabel(chargerIcon));
+        			initialSetup.put(coordinates,new JLabel(chargerIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else if(here instanceof Pick){
         			labelGrid.put(coordinates,new JLabel(pickerIcon));
+        			initialSetup.put(coordinates,new JLabel(pickerIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else if(here instanceof Pack){
         			labelGrid.put(coordinates,new JLabel(packerIcon));
+        			initialSetup.put(coordinates,new JLabel(packerIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else if(here instanceof ShelfSpace){
         			labelGrid.put(coordinates,new JLabel(shelfZoneIcon));
+        			initialSetup.put(coordinates,new JLabel(shelfZoneIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else{
         			labelGrid.put(coordinates,new JLabel(floorTileIcon));
+        			initialSetup.put(coordinates,new JLabel(floorTileIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}
@@ -158,9 +165,15 @@ public class Visualizer {
     	
     	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
     		Robot oldRobot = oldRobotIter.next();
-    		int[] coordinates = {oldRobot.row,oldRobot.col};
     		int[] coordinates = {oldRobot.getRow(),oldRobot.getCol()};
-    		labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());    		
+    		System.out.println(coordinates[0]);
+    		System.out.println(coordinates[1]);
+    		JLabel oldLabel = labelGrid.get(coordinates);
+    		JLabel originalLabel = initialSetup.get(coordinates);
+    		System.out.println(oldLabel);
+    		System.out.println(originalLabel);
+    		//labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());
+    		//System.out.println("Remove old robot");
     	}
     	
     	java.util.Iterator<Robot> robotIter = robots.keySet().iterator();
@@ -175,12 +188,14 @@ public class Visualizer {
     	
     	while(robotIter.hasNext()){
     		Robot robot = robotIter.next();
-    		int[] coordinates = {robot.row,robot.col};
     		int[] coordinates = {robot.getRow(),robot.getCol()};
     		if (robot.isCarryingShelves()){
-    			labelGrid.get(coordinates).setIcon(robotShelfIcon);
+    			//labelGrid.get(coordinates).setIcon(robotShelfIcon);
+    			System.out.println("Move robot with shelf to: [" + coordinates[0] + "," + coordinates[1] + "]");
     		}else{
-    			labelGrid.get(coordinates).setIcon(robotIcon);	
+    			//labelGrid.get(coordinates).setIcon(robotIcon);
+    			System.out.println("Move robot without shelf to: [" + coordinates[0] + "," + coordinates[1] + "]");
+    			
     		}
     	}
     	
@@ -196,6 +211,7 @@ public class Visualizer {
     * new information
     */
     public void onFrame(){
+    	System.out.println("Tick");
     	placeMovables();
     }
 }
