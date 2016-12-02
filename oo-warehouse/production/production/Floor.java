@@ -27,6 +27,8 @@ public class Floor {
 	public ArrayList<Point> ChargerLocs = new ArrayList<Point>();
 	public Point RecDockLoc = new Point(0, 0);
 	public ArrayList<Point> FloorSpaceLocs = new ArrayList<Point>();
+	public ArrayList<Shelf> ShelfList = new ArrayList<Shelf>();
+	public int a;
 	
 	
 	public Floor(int rows, int cols, int AmtRobots) {
@@ -82,15 +84,16 @@ public class Floor {
 		}
 		
 		
-		
-		// put belt along left wall
+		/*
+		// put belt along left wall. Store belt locations.
 		for(int i = 0; i < rows; i++){
 			layout[i][0] = new MockBelt(i, 0);
 			Point point = new Point(i, 0);
 			this.BeltLocs.add(point);
 		}
+		*/
 		
-		// Put pick/pack stations at beginning and end of belt.
+		// Put pick/pack stations at beginning and end of belt. Store locations.
 		// Size is 1 wide, HighwayWidth tall.
 		for(int i = 0; i < HighwayWidth; i++){
 			layout[i][1] = new Pack(i, 1);
@@ -104,7 +107,7 @@ public class Floor {
 			this.PickLocs.add(point);
 		}
 		
-		// Put shelf spaces of width 2 on floor.
+		// Put shelf spaces of width 2 on floor. Set up list of shelf spaces.
 		// Leave HighwayWidth spaces between them and other objects, including each other.
 		// There are no horizontal breaks right now, but they can be added later.
 		for(int k = HighwayWidth+1; k < rows-HighwayWidth-1; k = k+HighwayWidth+2){
@@ -113,12 +116,12 @@ public class Floor {
 					layout[i][j] = new ShelfSpace(i, j);
 					Point point = new Point(i, j);
 					this.ShelfSpaceLocs.add(point);
-					this.AmtShelves++;
 				}
 			}
 		}
 		
 		// Put chargers along top wall, leaving a space between each and other objects for flexibility.
+		// Set up list of chargers.
 		// There should be enough space for all of the chargers with reasonable inputs.
 		int ChargersPlaced = 0;
 		for(int j = 3; j < cols - 2; j = j+2){
@@ -130,11 +133,11 @@ public class Floor {
 			}
 		}
 		
-		// put receiving dock in top right corner
+		// put receiving dock in top right corner, store location
 		layout[0][cols-1] = new RecDock(0, cols-1);
 		this.RecDockLoc = new Point(0, cols-1);
 		
-		// put generic Floor Spaces everywhere else
+		// put generic Floor Spaces everywhere else, set up list of floor spaces
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < rows; j++){
 				if(layout[i][j] == null){
@@ -144,6 +147,17 @@ public class Floor {
 				}
 			}
 		}
+		
+		// put shelves on shelf spaces, set up list of shelves
+		int j = 1;
+		for(int i=0; i<ShelfSpaceLocs.size(); i++){
+			
+			Shelf shelf = new Shelf(j, ShelfSpaceLocs.get(i).row, ShelfSpaceLocs.get(i).col);
+			this.ShelfList.add(shelf);
+			this.AmtShelves++;
+			j++;
+		}
+				
 		
 	}
 	
