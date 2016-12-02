@@ -32,7 +32,6 @@ public class Master {
 	private Floor floor;
 	//private MockVisualizer visualizer;
 	private Visualizer visualizer;
-	private FrameListener visualizerUpdater;//used to make sure that visualizer draws at the end of the frame
 	private List<Map<String,Object>> initialInventory;
 	//speed of the simulation relative to real time
 	//measured in fps
@@ -170,7 +169,6 @@ public class Master {
 		this.orders = new Orders();
 		this.floor = new Floor(10,10,1);
 		this.visualizer = new Visualizer();
-		//this.visualizerUpdater = this.visualizer.updater;
 	}
 	/*
 	 * @author rpolley
