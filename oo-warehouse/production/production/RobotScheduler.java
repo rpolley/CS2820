@@ -91,8 +91,6 @@ public class RobotScheduler implements FrameListener {// implements Time
         // System.out.println(i.batterylife);
         int robotx = i.x;
         int roboty = i.y;
-        robotx = i.x;
-        roboty = i.y;
         // where we move the one robot to the shelve.
         // for each tick of the interface
         // trying to figure out a way to get around
