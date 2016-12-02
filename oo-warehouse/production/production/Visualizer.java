@@ -149,6 +149,16 @@ public class Visualizer {
         initialSetup = (HashMap<int[], JLabel>) labelGrid.clone();
     }
  
+    /**
+    *
+    * @author James Vipond
+    * @result Updates Visualizer variables with the new positions of robots and shelves
+    */
+    private static void updatePositions(){
+    	robots = Master.master.getRobotScheduler().RobotLocs;
+		shelves = Master.master.getRobotScheduler().ShelvesLocs;
+    
+    }
     
     
     /**
@@ -168,6 +178,9 @@ public class Visualizer {
     	}
     	*/
     	
+    	//This block reverts the icon at the location of the robot before this tick
+    	//to the original icon that it was initialized to i.e. when the robot moves
+    	//off of a shelf zone space, the icon changes from robotIcon to ShelfZoneIcon
     	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
     		Robot oldRobot = oldRobotIter.next();
     		int[] coordinates = {oldRobot.getRow(),oldRobot.getCol()};
@@ -197,6 +210,8 @@ public class Visualizer {
     	}
     	*/
     	
+    	//This block changes the icon at the location that the robot moved to
+    	//during this tick. It also checks if the robot is carrying a shelf.
     	while(robotIter.hasNext()){
     		Robot robot = robotIter.next();
     		int[] coordinates = {robot.getRow(),robot.getCol()};
@@ -220,6 +235,7 @@ public class Visualizer {
     		}
     	}
     	
+    	
     	oldRobots = (HashMap<Robot, int[]>) robots.clone();
     	oldShelves = (HashMap<Integer, int[]>) shelves.clone();
     	
@@ -234,6 +250,7 @@ public class Visualizer {
     public void onFrame(){
     	tickNumber++;
     	System.out.println("Tick " + tickNumber);
+    	updatePositions();
     	placeMovables();
     }
 }
