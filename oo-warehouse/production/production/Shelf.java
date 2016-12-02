@@ -4,7 +4,7 @@ package production;
  * @author Cole Petersen
  * 
  * Shelf object:
- * Represents shelves themselves.
+ * Represents shelves themselves. 
  */
 
 public class Shelf {
@@ -13,6 +13,7 @@ public class Shelf {
 	int HomeCol;
 	int CurRow;
 	int CurCol;
+	int capacity = 50;
 	
 	boolean BeingCarried;
 	

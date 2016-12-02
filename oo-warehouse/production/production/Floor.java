@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Cole Petersen
  * 
  * Floor object:
- * Stores layout of the floor, including locations of belts, shelf spaces, and more.
+ * Stores layout of the floor, including locations of belts, shelf spaces, and more. 
  */
 
 public class Floor {
@@ -14,6 +14,7 @@ public class Floor {
 	int rows;
 	int cols;
 	int AmtRobots;
+	int AmtShelves;
 	
 	Point point;
 	
@@ -33,6 +34,7 @@ public class Floor {
 		this.rows = rows;
 		this.cols = cols;
 		this.AmtRobots = AmtRobots;
+		this.AmtShelves = 0;
 		
 		this.layout = new Object[rows][cols];
 		
@@ -111,6 +113,7 @@ public class Floor {
 					layout[i][j] = new ShelfSpace(i, j);
 					Point point = new Point(i, j);
 					this.ShelfSpaceLocs.add(point);
+					this.AmtShelves++;
 				}
 			}
 		}

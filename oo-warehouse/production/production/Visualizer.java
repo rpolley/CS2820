@@ -158,11 +158,8 @@ public class Visualizer {
     	
     	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
     		Robot oldRobot = oldRobotIter.next();
-<<<<<<< HEAD
     		int[] coordinates = {oldRobot.row,oldRobot.col};
-=======
-    		int[] coordinates = {oldRobot.getX(),oldRobot.getY()};
->>>>>>> branch 'master' of https://github.com/rpolley/CS2820.git
+    		int[] coordinates = {oldRobot.getRow(),oldRobot.getCol()};
     		labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());    		
     	}
     	
@@ -178,11 +175,8 @@ public class Visualizer {
     	
     	while(robotIter.hasNext()){
     		Robot robot = robotIter.next();
-<<<<<<< HEAD
     		int[] coordinates = {robot.row,robot.col};
-=======
-    		int[] coordinates = {robot.getX(),robot.getY()};
->>>>>>> branch 'master' of https://github.com/rpolley/CS2820.git
+    		int[] coordinates = {robot.getRow(),robot.getCol()};
     		if (robot.isCarryingShelves()){
     			labelGrid.get(coordinates).setIcon(robotShelfIcon);
     		}else{

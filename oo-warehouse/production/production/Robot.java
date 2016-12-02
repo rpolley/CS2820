@@ -117,7 +117,7 @@ public class Robot extends RobotScheduler {
 	}
 	/**
 	* @author James Vipond
-	* @return x position of the robot
+	* @return row of the robot
 	*/
 	public int getRow(){
 		return this.row;
@@ -125,9 +125,9 @@ public class Robot extends RobotScheduler {
 	
 	/**
 	* @param James Vipond
-	* @return y position of the robot
+	* @return column of the robot
 	*/
-	public int getColumn(){
+	public int getCol(){
 		return this.col;
 	}
 }
