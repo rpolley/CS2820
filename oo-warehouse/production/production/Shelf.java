@@ -13,6 +13,7 @@ public class Shelf {
 	int HomeCol;
 	int CurRow;
 	int CurCol;
+	int capacity = 50;
 	
 	boolean BeingCarried;
 	
