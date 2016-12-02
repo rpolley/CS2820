@@ -13,9 +13,9 @@ public class Robot extends RobotScheduler {
 	boolean atCharger = false;
 	/*
 	 * does what 'part1' used to, I think
-	 * 
+	 * not even 100% sure what it does
 	 */
-	int state = 0;
+	int state = 2;
 /**
  * This just puts new robots down
  * @param startingx
