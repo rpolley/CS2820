@@ -61,7 +61,7 @@ public class Visualizer {
 	 * 
 	 * @author James Vipond
 	 * @result Reads information from the Floor class to
-	 * create the layout of the unmovable components of the floor 
+	 * create the layout of the unmovable components of the floor
 	 */
     private static void initialize() { 
     	
