@@ -110,5 +110,19 @@ public class Robot extends RobotScheduler {
 	public double getBatteryLife() {
 		return this.batterylife;
 	}
-	//
+	/**
+	* @author James Vipond
+	* @return x position of the robot
+	*/
+	public int getX(){
+		return this.x;
+	}
+	
+	/**
+	* @param James Vipond
+	* @return y position of the robot
+	*/
+	public int getY(){
+		return this.y;
+	}
 }
