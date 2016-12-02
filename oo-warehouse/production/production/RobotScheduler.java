@@ -25,12 +25,11 @@ public class RobotScheduler implements FrameListener {// implements Time
     public void addRobots() {
         Robot robo1 = new Robot(5, 5);
         int[] temp = new int[2];
-        temp[0] = robo1.x;
-        temp[1] = robo1.y;
+        temp[0] = robo1.row;
+        temp[1] = robo1.col;
         RobotLocs.put(robo1, temp);
     }
 
-    public int part1 = 0;
     public int ordernumber;
     // this is gonna be robots, and their locations
     // robots will each be a assigned an integer
@@ -89,14 +88,14 @@ public class RobotScheduler implements FrameListener {// implements Time
         int toLocationX = toX;
         int toLocationY = toY;
         // System.out.println(i.batterylife);
-        int robotx = i.x;
-        int roboty = i.y;
+        int robotx = i.row;
+        int roboty = i.col;
         // where we move the one robot to the shelve.
         // for each tick of the interface
         // trying to figure out a way to get around
         int check = 0;
         if (toLocationX == robotx && toLocationY == roboty) {
-            part1++;
+            i.state++;
         }
         if (toLocationX - robotx < 0) {
             i.move(robotx - 1, roboty);
@@ -132,22 +131,23 @@ public class RobotScheduler implements FrameListener {// implements Time
      */
     public void MovingRobots(Robot i, int[] locid) {
 
-        // while shelvex doesnt equal robot x etc. with y.
-        if (part1 == 0) {
+        // moving to shelf
+        if (i.state == 0) {
             moveRobot(i, locid[0], locid[1]);
             // or onFrame();
-            // if (requestid == 0) {
-            i.hasShelves = true;
+            if(i.row==locid[0]&&i.col==locid[1])
+            	i.hasShelves = true;
         }
-        if (part1 == 1) {
+        //moving to the belts
+        else if (i.state == 1) {
             moveRobot(i, locid[2], locid[3]);
         }
-        if (part1 == 2) {
+        else if (i.state == 2) {
             moveRobot(i, locid[0], locid[1]);
         }
-        if (part1 == 3) {
+        else if (i.state == 3) {
             i.inUse = false;
-            part1 = 0;
+            i.state = 0;
 
         }
 
