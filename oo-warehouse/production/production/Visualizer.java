@@ -34,8 +34,12 @@ public class Visualizer {
 	private static final ImageIcon robotIcon = new ImageIcon("res/Robot.png");
 	private static final ImageIcon robotShelfIcon = new ImageIcon("res/Robot.png");
 	private static final ImageIcon shelfIcon = new ImageIcon("res/Shelf.png");
+	private static final ImageIcon emptyBinIcon = new ImageIcon("res/EmptyBin.png"); //new icons
+	private static final ImageIcon fullBinIcon = new ImageIcon("res/FullBin.png");
+	private static final ImageIcon packageIcon = new ImageIcon("res/Package.png");
 	private static JFrame window;
 	private static JPanel panel; 
+	
 	
 	public Visualizer(){
 		
