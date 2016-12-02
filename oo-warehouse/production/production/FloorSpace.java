@@ -3,13 +3,13 @@ package production;
 /*
  * @author Cole Petersen
  * 
- * Highway object
+ * Floor Space (highway) object
  */
 
-public class Highway extends DrivableSpaceType {
+public class FloorSpace extends DrivableSpaceType {
 	
-	public Highway(int row, int col){
-		this.name = "Highway";
+	public FloorSpace(int row, int col){
+		this.name = "Floor Space";
 		this.row = row;
 		this.col = col;
 		this.CanDriveOn = true;

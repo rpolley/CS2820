@@ -69,7 +69,7 @@ public class Visualizer {
         	for(int y = 0; y < floor[0].length; y++){
         		Object here = floor[x][y];
         		int[] coordinates = {x,y};
-        		if (here instanceof Highway){
+        		if (here instanceof FloorSpace){
         			labelGrid.put(coordinates,new JLabel(highwayIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
