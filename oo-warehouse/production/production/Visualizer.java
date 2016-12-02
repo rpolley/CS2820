@@ -16,12 +16,14 @@ public class Visualizer {
 	//private static final String floorFile = "res/Floor.txt";
 	//private static BufferedReader floorReader = readFloor();
 	private static Object[][] floor;
+	public static int tickNumber;
 	private static HashMap<Robot,int[]> robots;
 	private static HashMap<Integer,int[]> shelves;
 	private static HashMap<int[],JLabel> labelGrid;
 	private static HashMap<int[],JLabel> initialSetup;
 	private static HashMap<Robot, int[]> oldRobots;
 	private static HashMap<Integer,int[]> oldShelves;
+	private static ArrayList<int[]> floorCoords;
 	private static final ImageIcon beltIcon = new ImageIcon("res/Belt.png");
 	private static final ImageIcon floorTileIcon = new ImageIcon("res/Highway.png");
 	private static final ImageIcon highwayIcon = new ImageIcon("res/Highway.png");
@@ -37,7 +39,9 @@ public class Visualizer {
 	
 	public Visualizer(){
 		
+		tickNumber = 0;
 		floor = Master.master.getFloor().layout;
+		floorCoords = new ArrayList<int[]>();
 		robots = Master.master.getRobotScheduler().RobotLocs;
 		shelves = Master.master.getRobotScheduler().ShelvesLocs;
 		labelGrid = new HashMap<int[],JLabel>();
@@ -70,6 +74,7 @@ public class Visualizer {
         	for(int y = 0; y < floor[0].length; y++){
         		Object here = floor[x][y];
         		int[] coordinates = {x,y};
+        		floorCoords.add(coordinates);
         		if (here instanceof FloorSpace){
         			labelGrid.put(coordinates,new JLabel(floorTileIcon));
         			initialSetup.put(coordinates,new JLabel(floorTileIcon));
@@ -166,12 +171,18 @@ public class Visualizer {
     	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
     		Robot oldRobot = oldRobotIter.next();
     		int[] coordinates = {oldRobot.getRow(),oldRobot.getCol()};
-    		System.out.println(coordinates[0]);
-    		System.out.println(coordinates[1]);
-    		JLabel oldLabel = labelGrid.get(coordinates);
-    		JLabel originalLabel = initialSetup.get(coordinates);
-    		System.out.println(oldLabel);
-    		System.out.println(originalLabel);
+    		for(int[] c : floorCoords){
+    			if(Arrays.equals(coordinates,c)){
+    				JLabel oldLabel = labelGrid.get(c);
+    	    		JLabel originalLabel = initialSetup.get(c);
+    	    		oldLabel.setIcon(originalLabel.getIcon());
+    			}
+    		}
+    		//System.out.println(coordinates[0]);
+    		//System.out.println(coordinates[1]);
+    		
+    		//System.out.println(oldLabel);
+    		//System.out.println(originalLabel);
     		//labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());
     		//System.out.println("Remove old robot");
     	}
@@ -190,11 +201,21 @@ public class Visualizer {
     		Robot robot = robotIter.next();
     		int[] coordinates = {robot.getRow(),robot.getCol()};
     		if (robot.isCarryingShelves()){
-    			//labelGrid.get(coordinates).setIcon(robotShelfIcon);
-    			System.out.println("Move robot with shelf to: [" + coordinates[0] + "," + coordinates[1] + "]");
+    			for(int[] c : floorCoords){
+        			if(Arrays.equals(coordinates,c)){
+        				JLabel newLabel = labelGrid.get(c);
+        	    		newLabel.setIcon(robotShelfIcon);
+        			}
+        		}
+    			System.out.println("Robot with shelf at: [" + coordinates[0] + "," + coordinates[1] + "]");
     		}else{
-    			//labelGrid.get(coordinates).setIcon(robotIcon);
-    			System.out.println("Move robot without shelf to: [" + coordinates[0] + "," + coordinates[1] + "]");
+    			for(int[] c : floorCoords){
+        			if(Arrays.equals(coordinates,c)){
+        				JLabel newLabel = labelGrid.get(c);
+        				newLabel.setIcon(robotIcon);
+        			}
+        		}
+    			System.out.println("Robot without shelf at: [" + coordinates[0] + "," + coordinates[1] + "]");
     			
     		}
     	}
@@ -211,7 +232,8 @@ public class Visualizer {
     * new information
     */
     public void onFrame(){
-    	System.out.println("Tick");
+    	tickNumber++;
+    	System.out.println("Tick " + tickNumber);
     	placeMovables();
     }
 }
