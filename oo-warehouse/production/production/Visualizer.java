@@ -90,7 +90,7 @@ public class Visualizer {
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else if(here instanceof ShelfSpace){
-        			labelGrid.put(coordinates,new JLabel(beltIcon));
+        			labelGrid.put(coordinates,new JLabel(shelfZoneIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else{
