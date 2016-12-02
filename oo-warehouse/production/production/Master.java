@@ -30,7 +30,8 @@ public class Master {
 	private Inventory inventory;
 	private Orders orders;
 	private Floor floor;
-	private MockVisualizer visualizer;
+	//private MockVisualizer visualizer;
+	private Visualizer visualizer;
 	private FrameListener visualizerUpdater;//used to make sure that visualizer draws at the end of the frame
 	private List<Map<String,Object>> initialInventory;
 	//speed of the simulation relative to real time
@@ -80,7 +81,7 @@ public class Master {
 	/*
 	 * @author rpolley
 	 */
-	public MockVisualizer getVisualizer() {
+	public Visualizer getVisualizer() {
 		return visualizer;
 	}
 	
@@ -168,8 +169,8 @@ public class Master {
 		this.inventory = new Inventory(initialInventory);
 		this.orders = new Orders();
 		this.floor = new Floor(10,10,1);
-		this.visualizer = new MockVisualizer();
-		this.visualizerUpdater = this.visualizer.updater;
+		this.visualizer = new Visualizer();
+		//this.visualizerUpdater = this.visualizer.updater;
 	}
 	/*
 	 * @author rpolley
