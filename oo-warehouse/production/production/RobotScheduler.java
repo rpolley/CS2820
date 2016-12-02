@@ -65,7 +65,7 @@ public class RobotScheduler implements FrameListener {// implements Time
         if (i == null) {
             return;
         }
-        MovingRobots(i, locid);
+        makeMoveDecision(i, locid);
         moveCharger(i);
     }
 
@@ -129,7 +129,7 @@ public class RobotScheduler implements FrameListener {// implements Time
     /**
      * in the process of making this tickable to go along with Master class
      */
-    public void MovingRobots(Robot i, int[] locid) {
+    public void makeMoveDecision(Robot i, int[] locid) {
 
         // moving to shelf
         if (i.state == 0) {
@@ -145,7 +145,7 @@ public class RobotScheduler implements FrameListener {// implements Time
         else if (i.state == 2) {
             moveRobot(i, locid[0], locid[1]);
         }
-        else if (i.state == 3) {
+        else{
             i.inUse = false;
             i.state = 0;
 

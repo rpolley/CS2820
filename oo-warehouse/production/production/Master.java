@@ -143,8 +143,8 @@ public class Master {
 		}
 		//update the visualizer after everything else has run
 		//
-		if(visualizerUpdater!=null){
-			visualizerUpdater.onFrame();
+		if(visualizer!=null){
+			visualizer.onFrame();
 		}
 		time++;
 	}
