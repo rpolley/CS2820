@@ -25,7 +25,7 @@ public class Floor {
 	public ArrayList<Point> ShelfSpaceLocs = new ArrayList<Point>();
 	public ArrayList<Point> ChargerLocs = new ArrayList<Point>();
 	public Point RecDockLoc = new Point(0, 0);
-	public ArrayList<Point> HighwayLocs = new ArrayList<Point>();
+	public ArrayList<Point> FloorSpaceLocs = new ArrayList<Point>();
 	
 	
 	public Floor(int rows, int cols, int AmtRobots) {
@@ -131,13 +131,13 @@ public class Floor {
 		layout[0][cols-1] = new RecDock(0, cols-1);
 		this.RecDockLoc = new Point(0, cols-1);
 		
-		// put highways everywhere else
+		// put generic Floor Spaces everywhere else
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < rows; j++){
 				if(layout[i][j] == null){
-					layout[i][j] = new Highway(i, j);
+					layout[i][j] = new FloorSpace(i, j);
 					Point point = new Point(i, j);
-					this.HighwayLocs.add(point);
+					this.FloorSpaceLocs.add(point);
 				}
 			}
 		}

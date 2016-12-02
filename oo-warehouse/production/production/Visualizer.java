@@ -23,6 +23,7 @@ public class Visualizer {
 	private static HashMap<Robot, int[]> oldRobots;
 	private static HashMap<Integer,int[]> oldShelves;
 	private static final ImageIcon beltIcon = new ImageIcon("res/Belt.png");
+	private static final ImageIcon floorTileIcon = new ImageIcon("res/Highway.png");
 	private static final ImageIcon highwayIcon = new ImageIcon("res/Highway.png");
 	private static final ImageIcon pickerIcon = new ImageIcon("res/Picker.png");
 	private static final ImageIcon packerIcon = new ImageIcon("res/Packer.png");
@@ -69,14 +70,14 @@ public class Visualizer {
         	for(int y = 0; y < floor[0].length; y++){
         		Object here = floor[x][y];
         		int[] coordinates = {x,y};
-        		if (here instanceof Highway){
+        		if (here instanceof FloorSpace){
         			labelGrid.put(coordinates,new JLabel(highwayIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
-        	//	}else if(here instanceof Belt){
-        	//		labelGrid.put({x,y},newJLabel(beltIcon))
-    		//		panel.add(labelGrid.get(coordinates));
-    		//		continue;
+        		}else if(here instanceof MockBelt){
+        			labelGrid.put(coordinates,new JLabel(beltIcon));
+    				panel.add(labelGrid.get(coordinates));
+    				continue;
         		}else if(here instanceof Charger){
         			labelGrid.put(coordinates,new JLabel(chargerIcon));
     				panel.add(labelGrid.get(coordinates));
@@ -94,7 +95,7 @@ public class Visualizer {
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}else{
-        			labelGrid.put(coordinates,new JLabel(highwayIcon));
+        			labelGrid.put(coordinates,new JLabel(floorTileIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
         		}
@@ -157,7 +158,11 @@ public class Visualizer {
     	
     	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
     		Robot oldRobot = oldRobotIter.next();
+<<<<<<< HEAD
     		int[] coordinates = {oldRobot.row,oldRobot.col};
+=======
+    		int[] coordinates = {oldRobot.getX(),oldRobot.getY()};
+>>>>>>> branch 'master' of https://github.com/rpolley/CS2820.git
     		labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());    		
     	}
     	
@@ -173,7 +178,11 @@ public class Visualizer {
     	
     	while(robotIter.hasNext()){
     		Robot robot = robotIter.next();
+<<<<<<< HEAD
     		int[] coordinates = {robot.row,robot.col};
+=======
+    		int[] coordinates = {robot.getX(),robot.getY()};
+>>>>>>> branch 'master' of https://github.com/rpolley/CS2820.git
     		if (robot.isCarryingShelves()){
     			labelGrid.get(coordinates).setIcon(robotShelfIcon);
     		}else{
