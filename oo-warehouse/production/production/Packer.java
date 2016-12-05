@@ -1,6 +1,8 @@
 package production;
 
+import java.awt.Point;
 import java.util.ArrayList;
+
 /**
  * 
  * @author Anani
@@ -17,9 +19,11 @@ public class Packer {
  	public Packer(Floor n,ArrayList<Point> beltarea, int Packerp, int statepacker){
  		this.n = n;
 		beltarea = n.getBeltLocs();
+		L=beltarea.size();
  		this.Packerp=Packerp; 		
  		this.statepacker=statepacker;
- 		Packer=new String[L-140][0];//Packer postion 
+ 		Packer=new String[L-140][0];//Packer postion
+ 		init();
  		
  	}
  	
@@ -35,7 +39,7 @@ public class Packer {
  	public void updateState(){		 		 
  		 
  			// Update Packer states		 
- 		 				if ("p".equals(Packer[L-140][0])){ 
+ 		 				if ("P".equals(Packer[L-140][0])){ 
  		 					statepacker=3; 
  		 				}else if(Packer[L-140][0]==null){ 
  		 					statepacker=1; 
