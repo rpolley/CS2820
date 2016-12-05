@@ -7,17 +7,20 @@ package production;
  */
 
 public class Bin {
-	Orders Order;
+	Picker pi;
+	order Order;
 	boolean finished;
+	int k = pi.getPickerp();	
 	public Bin(){
+		if (k!=1)return ; //Picker present
 		Order = null; finished = false;}
 	public boolean isFinished(){
 		return finished;}
 	public void setFinished(){
 		finished = true;}
-	public Orders getOrder(){
+	public order getOrder(){
 		return Order;}
-	public void setOrder(Orders o){
+	public void setOrder(order o){
 		Order = o;}	
 	public String toString(){
 		return "Bin";
