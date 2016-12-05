@@ -1,5 +1,6 @@
 package production;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -17,10 +18,12 @@ public class Picker {
  	
 	public Picker(Floor n,ArrayList<Point> beltarea, int Pickerp,int statepicker){
 		this.n = n;
-		beltarea = n.getBeltLocs();		
+		beltarea = n.getBeltLocs();	
+		L=beltarea.size();
 		this.Pickerp=Pickerp;
 		this.statepicker=statepicker;
 		Picker=new String[L][0]; //Picker position
+		init();
 	}
 	
 	private void init(){ 
@@ -43,7 +46,7 @@ public class Picker {
 	}
 	
 	public int getStatePicker(){
-		init();
+		//init();
  		return statepicker; 
  	}  	
 	public int getPickerp(){ 
