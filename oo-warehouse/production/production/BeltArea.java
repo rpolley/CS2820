@@ -6,7 +6,7 @@ import java.util.ArrayList;
 	 * @author Anani
 	 *
 	 */
-public class MockBelt implements Belt{		
+public class BeltArea implements Belt{		
 		Floor n;
 		Packer pa;
 		Picker pi;
@@ -17,7 +17,7 @@ public class MockBelt implements Belt{
 		//Call Floor object
 		//to locate the belt area (place),cells and other
 		//Initialisation Bin to null
-	public MockBelt(Floor n,ArrayList<Point> beltarea, Packer pa, Picker pi){
+	public BeltArea(Floor n,ArrayList<Point> beltarea, Packer pa, Picker pi){
 		this.n = n;
 		this.pa = pa;
 		this.pi = pi;
