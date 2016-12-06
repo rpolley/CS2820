@@ -44,6 +44,7 @@ public class RobotScheduler implements FrameListener {// implements Time
     public void addRequest(int[] locations) { // or an int as to where the
         // picker/packer is or where
         // loading dock
+    	//[ x of shelf, y of shelf, x of packer or loading dock, y of packer or loading dock]
         RequestQueue.add(locations);
     }
 
