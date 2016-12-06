@@ -84,7 +84,7 @@ public class Visualizer {
         			initialSetup.put(coordinates,new JLabel(floorTileIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
-        		}else if(here instanceof BeltArea){
+        		}else if(here instanceof MockBelt){
         			labelGrid.put(coordinates,new JLabel(beltIcon));
         			initialSetup.put(coordinates,new JLabel(beltIcon));
     				panel.add(labelGrid.get(coordinates));

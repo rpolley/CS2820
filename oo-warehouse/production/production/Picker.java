@@ -13,15 +13,17 @@ public class Picker {
 	private int statepicker; // state picker station
 	private int Pickerp; //presence of picker on the Floor
 	private int L; // Belt length 	
+	private Pick location;
  	public  ArrayList<Point> beltarea;
  	
-	public Picker(Floor n,ArrayList<Point> beltarea, int Pickerp,int statepicker){
+	public Picker(Floor n,ArrayList<Point> beltarea, int Pickerp,int statepicker, Pick p){
 		this.n = n;
 		beltarea = n.getBeltLocs();	
 		L=beltarea.size();
 		this.Pickerp=Pickerp;
 		this.statepicker=statepicker;
-		Picker=new String[L][0]; //Picker position
+		this.location = p;
+		Picker=new String[p.row][p.col]; //Picker position
 		init();
 	}
 	

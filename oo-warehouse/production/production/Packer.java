@@ -7,21 +7,23 @@ import java.util.ArrayList;
  * @author Anani
  *
  */
-public class Packer {
+public class Packer{
 	Floor n;
 	public String[][] Packer; 	
 	private int Packerp; //presence of packer on the floor 	
  	private int statepacker;//state packer position
- 	private int L; // Belt length 	
+ 	private int L; // Belt length
+ 	private Pack location;
  	public  ArrayList<Point> beltarea;
  	
- 	public Packer(Floor n,ArrayList<Point> beltarea, int Packerp, int statepacker){
+ 	public Packer(Floor n,ArrayList<Point> beltarea, int Packerp, int statepacker, Pack p){
  		this.n = n;
 		beltarea = n.getBeltLocs();
 		L=beltarea.size();
  		this.Packerp=Packerp; 		
  		this.statepacker=statepacker;
- 		Packer=new String[L-140][0];//Packer postion
+ 		this.location = p;
+ 		Packer=new String[p.row][p.col];//Packer postion
  		init();
  		
  	}

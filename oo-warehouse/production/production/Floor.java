@@ -84,28 +84,34 @@ public class Floor {
 		}
 		
 		
-		/*
-		// put belt along left wall. Store belt locations.
-		for(int i = 0; i < rows; i++){
-			layout[i][0] = new MockBelt(i, 0);
-			Point point = new Point(i, 0);
-			this.BeltLocs.add(point);
-		}
-		*/
+		
+
 		
 		// Put pick/pack stations at beginning and end of belt. Store locations.
 		// Size is 1 wide, HighwayWidth tall.
+		Pack pack = null;
+		Pick pick = null;
 		for(int i = 0; i < HighwayWidth; i++){
-			layout[i][1] = new Pack(i, 1);
+			pack = new Pack(i, 1);
+			layout[i][1] = pack;
 			Point point = new Point(i, 1);
 			this.PackLocs.add(point);
 		}
-		
+
 		for(int i = rows-1; i > cols-HighwayWidth-1; i--){
-			layout[i][1] = new Pick(i, 1);
+			pick = new Pick(i, 1);
+			layout[i][1] = pick;
 			Point point = new Point(i, 1);
 			this.PickLocs.add(point);
 		}
+		// put belt along left wall. Store belt locations.
+		for(int i = 0; i < rows; i++){
+			Point point = new Point(i, 0);
+			this.BeltLocs.add(point);
+		}
+		Packer packer = new Packer(this, BeltLocs,1,1,pack);
+		Picker picker = new Picker(this, BeltLocs,1,1,pick);
+		new MockBelt(this,BeltLocs,packer,picker);
 		
 		// Put shelf spaces of width 2 on floor. Set up list of shelf spaces.
 		// Leave HighwayWidth spaces between them and other objects, including each other.

@@ -6,28 +6,25 @@ import java.util.ArrayList;
 	 * @author Anani
 	 *
 	 */
-public class BeltArea implements Belt{		
+public class MockBelt implements Belt{		
 		Floor n;
 		Packer pa;
 		Picker pi;
 		Bin binMade;		
 	 	private int L; // Belt length
 	 	//private int nC; // number of Items
-	 	public  String[] beltarea;
+	 	public  Point[] beltarea;
 		//Call Floor object
 		//to locate the belt area (place),cells and other
 		//Initialisation Bin to null
-	public BeltArea(Floor n,ArrayList<Point> beltarea, Packer pa, Picker pi){
+	public MockBelt(Floor n,ArrayList<Point> beltarea, Packer pa, Picker pi){
 		this.n = n;
 		this.pa = pa;
 		this.pi = pi;
 		beltarea = n.getBeltLocs();
 		binMade = null;
 		L=beltarea.size();  		
- 		//this.nC=nC
- 		this.beltarea=new String[L]; 
-		System.arraycopy(beltarea, 0, this.beltarea, 0, L); 		
- 		init(); 
+ 		//this.nC=nC	
 	}
 	private void init(){ 
  		for (int i=0; i<L; i++){			
@@ -48,7 +45,6 @@ public class BeltArea implements Belt{
 			binMade = null;		
 		}
 		if (!isMovable())return;
-		beltarea[L-140]="B";
 		pi.Picker[L][0]=null;
 		doPacker();
 		
@@ -90,7 +86,6 @@ public class BeltArea implements Belt{
 			if (action[i]==1){
 				
 					if(W[L-140][0]!=null)return; 
- 						W[L-140][0]=beltarea[L-140];
  						beltarea[L-140]=null;
 					}			
 			// Make the Parcel
@@ -100,7 +95,6 @@ public class BeltArea implements Belt{
 				W[L-140][0]="P"; 
  			//Put the parcel on the belt
  			if (action[i]==4){ 
-			beltarea[L-140]="P"; 
 			W[L-140][0]=null; 				 
  			}
  		}
