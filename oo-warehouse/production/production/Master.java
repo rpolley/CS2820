@@ -15,6 +15,7 @@ public class Master {
 	protected Master(int speed, int robotCount){
 		subscribedListeners = new LinkedList<FrameListener>();
 		this.speed = speed;
+		//doesn't acutally affect the number of robots
 		this.robotCount = robotCount;
 		this.time = 0;
 		this.stopped = true;
@@ -26,7 +27,6 @@ public class Master {
 	private Collection<FrameListener> subscribedListeners;
 	private RobotScheduler robots;
 	private int robotCount;
-	private MockBelt belts;
 	private Inventory inventory;
 	private Orders orders;
 	private Floor floor;
@@ -50,12 +50,6 @@ public class Master {
 		return robots;
 	}
 
-	/*
-	 * @author rpolley
-	 */
-	public MockBelt getBelts() {
-		return belts;
-	}
 	
 	/*
 	 * @author rpolley
