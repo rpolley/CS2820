@@ -39,6 +39,7 @@ public class Master {
 	//and 60 would indicate 1 minute in simulation=1 second real time
 	//0 indicates as fast as the computer can go
 	private int speed;
+	//how many frames have passed since the simulation started
 	private int time;
 	private boolean stopped;
 	
@@ -140,11 +141,18 @@ public class Master {
 			if(stopped)break;
 			l.onFrame();
 		}
-		//update the visualizer after everything else has run
-		//
+		/*
+		 * update the visualizer after everything else has run
+		 *since the visualizer draws things based on their state when it's called
+		 *if we call it in the middle of a frame
+		 *it will not accurately reflect the state of the simulation
+		 *at a single point of time
+		 *so instead call it after everything else
+		 **/
 		if(visualizer!=null){
 			visualizer.onFrame();
 		}
+		//update time
 		time++;
 	}
 	/*
@@ -163,10 +171,13 @@ public class Master {
 	 */
 	public void initializeSimulation(){
 		this.initialInventory = new ArrayList();
+		//initialize  the robot scheduler
+		//since it can add robots at any time, robots.addRobots needs to be called
 		this.robots = new RobotScheduler();
 		this.robots.addRobots();
 		this.inventory = new Inventory(initialInventory);
 		this.orders = new Orders();
+		//initialize the floor in a 10 by 10 configuration with 1 robot
 		this.floor = new Floor(10,10,1);
 		this.visualizer = new Visualizer();
 	}
@@ -177,6 +188,11 @@ public class Master {
 	public void startSimulation(){
 		stopped = false;
 		while(!stopped){
+			/*
+			 * run frame while regulating fps
+			 * by timing how long it takes for each step to run,
+			 * and then waiting out the rest of the time
+			 */
 			long frameStart = System.currentTimeMillis();
 			runFrame();
 			long frameEnd = System.currentTimeMillis();
