@@ -1,4 +1,5 @@
 package production;
+
 /**
  *
  * @author Fan Gao
@@ -15,23 +16,28 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Inventory {
+        int capacity;
 	boolean isExist;
 	//boolean isInList;
 	int amount;
         //the amount of the item
 	List<Map<String, Object>> inventory = new ArrayList<Map<String, Object>>();
-	//inventory with items in it, each item is a hashmap
+        Map<Integer, Integer> shelfinfo = new HashMap<Integer, Integer>();
+        //List<Map<Integer,Integer>> shelflist = new ArrayList<Map<Integer, Integer>>();
 
     public Inventory(List inventory){
+        //this.shelflist = new ArrayList;
         this.inventory = inventory;
     }
 
 
-     /*This method read a txt file, with items information
+     /**This method read a txt file, with items information
       *then put into an arraylist, each element is an item
       *each item has name, amount, existence, shelf, point,...blablabla...
       *
@@ -42,7 +48,7 @@ public class Inventory {
     	BufferedReader br = null;
 		try
 		{      //read file from the path, when testing change path to "list1.txt"
-			br = new BufferedReader(new FileReader("C:\\Users\\fgao6\\Desktop\\list1.txt"));
+			br = new BufferedReader(new FileReader("C:\\Users\\gaofa\\Desktop\\list1.txt"));
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
@@ -95,6 +101,45 @@ public class Inventory {
 		}
     }
 	
+    /**
+     * This method read the shelf id and each shelf's remaining capacity(50 - current item amount)
+     * then put the id and its amount into a Hashmap
+     * 
+     * for example, the "shelfinfo" will be a Map like 
+     * {1=5, 2=10, 3=40, 4=0, 5=5, 6=28, 7=5, 8=15, 9=10, 10=30, 11=20, 12=5, 13=45, 14=30, 15=15}
+     */
+    public Map<Integer, Integer> readshelf(){
+
+        int i;
+        int shelfid =1;
+    	int amount=0;
+        //Map<Integer, Integer> shelfinfo = new HashMap<Integer, Integer>();
+    	for (i = 0; i < inventory.size(); i++)
+		{
+    		Map<String, Object> newItem = new HashMap<String, Object>();
+                
+    		newItem = inventory.get(i);
+                int id = Integer.parseInt((String) newItem.get("Shelf#"));
+                int a =Integer.parseInt((String) newItem.get("Amount"));
+			if (shelfid==id){
+			    amount = amount + a;
+                            //System.out.println(amount);
+			}
+                        else{
+                            shelfinfo.put(shelfid,50-amount);
+                            amount =a;
+                            shelfid=shelfid+1;
+                            //amount = 0;
+                            //i = i-1;
+                        }
+		}
+        shelfinfo.put(shelfid, 50-amount); //put in the last shelf info
+        //System.out.println(shelfinfo);
+        return shelfinfo;
+    }
+            
+            
+            
    /**
      * use Point class to get the position of the item,
      * input the itemName, then get the position
@@ -104,6 +149,7 @@ public class Inventory {
      * @return Point(position of the item)
      */
     public Point readPosition(String itemName){
+
     	int i;
     	String pos = "";
     	for (i = 0; i < inventory.size(); i++)
@@ -174,7 +220,7 @@ public class Inventory {
     }
 
      
-      /*This method can remove item from the inventory
+      /**This method can remove item from the inventory
        *first check if the item is in stock
        *if not exist, say not found
        *if exist, let the item's amount - qty
@@ -185,6 +231,7 @@ public class Inventory {
        *
        */
     public void removeItem(String itemName, int Qty){
+  
     	if (checkExistWithQty(itemName, Qty) == true){
     		int i;
     		//System.out.println(checkExist(itemName));
@@ -211,7 +258,7 @@ public class Inventory {
         		removedItem = inventory.get(i);
         		
     			if (itemName.equals(removedItem.get("Name").toString())){
-    			    System.out.println("Since item "+ itemName + "'s amout is not enough, try less amount.");  
+    			    System.out.println("Since item "+ itemName + "'s amount is not enough, try less amount.");  
                         }                  
                 }
     	}
@@ -219,18 +266,59 @@ public class Inventory {
     }
 
 	
-     /*This method add item to inventory
+     /**This method add item to inventory
       *if item already in inventory, amount + qty
       *if not in list, make new item id, let amount = qty
+      * //new added item//
+      * It will find the largest capacity remaining in the in-using shelves
+      *     if Qty < largest capacity remaining
+      *             the new add item will go to that shelf
+      *     else  
+      *             the new item will go to a new(empty) shelf
       *
       * @param itemName
       * @param Qty
-      * its gonna add the called item into the inventory, plus the Amount by qty
+      * 
+      * if the item already in the list, its gonna add the called item into the inventory, plus the Amount by qty
       *
       */
   public void addItem(String itemName, int Qty){
     	boolean InList = false;
     	int i;
+        List<Map<String, Object>> listA = new ArrayList<>();
+	Inventory b = new Inventory(listA);
+        b.data();
+	//b.readshelf();
+        int max =0;
+        int lastshelf =0;
+        
+        //get the max capacity of in-used shelves
+        for (Map.Entry<Integer, Integer> m :b.readshelf().entrySet())  {  
+           if ( m.getValue()> max){
+                max = m.getValue();
+           }  
+        }
+        //System.out.println(max);
+        
+        
+        for (Map.Entry<Integer, Integer> m :b.readshelf().entrySet())  {  
+           if ( m.getKey()> lastshelf){
+                lastshelf = m.getKey();
+           }  
+        }
+        
+        //get the shelf id with max capacity
+        int keys=0;  
+        Iterator it = b.readshelf().entrySet().iterator();  
+        while (it.hasNext()) {  
+            Map.Entry entry = (Entry) it.next();  
+            int val = (int) entry.getValue();  
+            if (val == max) {  
+                keys= (int) entry.getKey();  
+            }  
+        }
+  
+               
     	for (i = 0; i < inventory.size(); i++)
 		{
     		Map<String, Object> newItem = new HashMap<String, Object>();
@@ -249,6 +337,12 @@ public class Inventory {
     		newItem.put("Name",itemName);
     		newItem.put("Amount",Qty);
     		newItem.put("Existence","Y");
+                if (Qty <= max){
+                    newItem.put("Shelf#",keys);
+                }
+                else{
+                    newItem.put("Shelf#",lastshelf+1);
+                }
     		inventory.add(newItem);
     	}
     	
@@ -256,7 +350,7 @@ public class Inventory {
     } 
 
 	
-     /* This method write the modified inventory list into a new file.txt
+     /** This method write the modified inventory list into a new file.txt
       * output a new file with refreshed list
       *
       * @param nothing, but write all the "inventory" into a new file
@@ -265,7 +359,7 @@ public class Inventory {
     public void outPutFile(){
     	try
 		{
-    	   PrintWriter pw = new PrintWriter(new File("C:\\Users\\fgao6\\Desktop\\list2.txt"));
+    	   PrintWriter pw = new PrintWriter(new File("C:\\Users\\gaofa\\Desktop\\list2.txt"));
     	   pw.println("Id\tName\tAmount\tShelf#\tPosition\tExistence");
     	   String[] columnName = { "Id", "Name", "Amount", "Shelf#", "Position"};
 			int cIndex;
@@ -289,24 +383,29 @@ public class Inventory {
 		}
     }
 
-    /*main method to test for inventory
+    /**main method to test for inventory
      *
      * @param args
      */
     public static void main(String[] args) {
 
-	List<Map<String, Object>> listA = new ArrayList<Map<String, Object>>();
+	List<Map<String, Object>> listA = new ArrayList<>();
 	 //add code here to read file and insert the item in to listA
 
 	Inventory a = new Inventory(listA);
 	a.data();
-
-	a.addItem("Z",3);
+        
+        
+	a.addItem("Z",25);
 	a.addItem("A",5);
 	a.addItem("F",16);
+        a.addItem("Ball",48);
+        
 	a.removeItem("K",4);
         a.removeItem("Shoe", 2);
         a.readPosition("A");
         a.readPosition("G");
+       
+        
 	}
 }
