@@ -15,14 +15,15 @@ public class Visualizer {
      */
 	//private static final String floorFile = "res/Floor.txt";
 	//private static BufferedReader floorReader = readFloor();
-	private static Object[][] floor;
+	private static Floor floor;
+	private static Object[][] floorLayout;
 	public static int tickNumber;
 	private static HashMap<Robot,int[]> robots;
-	private static HashMap<Integer,int[]> shelves;
+	private static ArrayList<Shelf> shelves;
 	private static HashMap<int[],JLabel> labelGrid;
 	private static HashMap<int[],JLabel> initialSetup;
 	private static HashMap<Robot, int[]> oldRobots;
-	private static HashMap<Integer,int[]> oldShelves;
+	private static ArrayList<Shelf> oldShelves;
 	private static ArrayList<int[]> floorCoords;
 	private static final ImageIcon beltIcon = new ImageIcon("res/Belt.png");
 	private static final ImageIcon floorTileIcon = new ImageIcon("res/Highway.png");
@@ -44,21 +45,22 @@ public class Visualizer {
 	public Visualizer(){
 		
 		tickNumber = 0;
-		floor = Master.master.getFloor().layout;
+		floor = Master.master.getFloor();
+		floorLayout = floor.layout;
 		floorCoords = new ArrayList<int[]>();
 		robots = Master.master.getRobotScheduler().RobotLocs;
-		shelves = Master.master.getRobotScheduler().ShelvesLocs;
+		shelves = floor.ShelfList;
 		labelGrid = new HashMap<int[],JLabel>();
 		initialSetup = new HashMap<int[],JLabel>();
 		oldRobots = (HashMap<Robot, int[]>) robots.clone();
-		oldShelves = (HashMap<Integer, int[]>) shelves.clone();
+		oldShelves = (ArrayList<Shelf>) shelves.clone();
 		
 		window = new JFrame("Warehouse Visualizer");
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        
 	    panel = new JPanel();
 	    window.getContentPane().add(panel, BorderLayout.CENTER);
-	    panel.setLayout(new GridLayout(floor.length,floor[0].length));
+	    panel.setLayout(new GridLayout(floorLayout.length,floorLayout[0].length));
 	     
 	    initialize();
 	     
@@ -74,9 +76,9 @@ public class Visualizer {
 	 */
     private static void initialize() { 
     	
-    	for(int x = 0; x < floor.length; x++){
-        	for(int y = 0; y < floor[0].length; y++){
-        		Object here = floor[x][y];
+    	for(int x = 0; x < floorLayout.length; x++){
+        	for(int y = 0; y < floorLayout[0].length; y++){
+        		Object here = floorLayout[x][y];
         		int[] coordinates = {x,y};
         		floorCoords.add(coordinates);
         		if (here instanceof FloorSpace){
@@ -160,7 +162,7 @@ public class Visualizer {
     */
     private static void updatePositions(){
     	robots = Master.master.getRobotScheduler().RobotLocs;
-		shelves = Master.master.getRobotScheduler().ShelvesLocs;
+		shelves = floor.ShelfList;
     
     }
     
@@ -173,14 +175,19 @@ public class Visualizer {
     private static void placeMovables(){
     	
     	java.util.Iterator<Robot> oldRobotIter = oldRobots.keySet().iterator();
-    	java.util.Iterator<Integer> oldShelfIter =  oldShelves.keySet().iterator();
     	
-    	/*
-    	while(((java.util.Iterator<Integer>) oldShelfIter).hasNext()){
-    		Integer oldShelf = oldShelfIter.next();
-    		labelGrid.get(oldShelves.get(oldShelf)).setIcon(initialSetup.get(oldShelf).getIcon());
+    	
+    	for(Shelf oldShelf : oldShelves){
+    		int[] coordinates = {oldShelf.CurRow,oldShelf.CurCol};
+    		for(int[] c : floorCoords){
+    			if(Arrays.equals(coordinates,c)){
+    				JLabel oldLabel = labelGrid.get(c);
+    	    		JLabel originalLabel = initialSetup.get(c);
+    	    		oldLabel.setIcon(originalLabel.getIcon());
+    			}
+    		}
     	}
-    	*/
+    	
     	
     	//This block reverts the icon at the location of the robot before this tick
     	//to the original icon that it was initialized to i.e. when the robot moves
@@ -205,7 +212,6 @@ public class Visualizer {
     	}
     	
     	java.util.Iterator<Robot> robotIter = robots.keySet().iterator();
-    	java.util.Iterator<Integer> shelfIter = shelves.keySet().iterator();
     	
     	/*
     	while(shelfIter.hasNext()){
@@ -214,35 +220,46 @@ public class Visualizer {
     	}
     	*/
     	
+    	for(Shelf s : shelves){
+    		int[] shelfCoordinates = {s.CurRow,s.CurCol};
+    		for(int[] c : floorCoords){
+    			if(Arrays.equals(shelfCoordinates,c)){
+    				if(s.CurRow == s.HomeRow && s.CurCol == s.HomeCol){
+    				JLabel oldLabel = labelGrid.get(c);
+    	    		oldLabel.setIcon(shelfIcon);
+    	    		System.out.println("Shelf at: [" + s.CurRow + "," + s.CurCol + "]" );
+    				}
+    			}
+    		}
+    	}
     	//This block changes the icon at the location that the robot moved to
     	//during this tick. It also checks if the robot is carrying a shelf.
     	while(robotIter.hasNext()){
     		Robot robot = robotIter.next();
-    		int[] coordinates = {robot.getRow(),robot.getCol()};
+    		int[] robotCoordinates = {robot.getRow(),robot.getCol()};
     		if (robot.isCarryingShelves()){
     			for(int[] c : floorCoords){
-        			if(Arrays.equals(coordinates,c)){
+        			if(Arrays.equals(robotCoordinates,c)){
         				JLabel newLabel = labelGrid.get(c);
         	    		newLabel.setIcon(robotShelfIcon);
         			}
         		}
-    			System.out.println("Robot with shelf at: [" + coordinates[0] + "," + coordinates[1] + "]");
+    			System.out.println("Robot with shelf at: [" + robotCoordinates[0] + "," + robotCoordinates[1] + "]");
     		}else{
     			for(int[] c : floorCoords){
-        			if(Arrays.equals(coordinates,c)){
+        			if(Arrays.equals(robotCoordinates,c)){
         				JLabel newLabel = labelGrid.get(c);
         				newLabel.setIcon(robotIcon);
         			}
         		}
-    			System.out.println("Robot without shelf at: [" + coordinates[0] + "," + coordinates[1] + "]");
+    			System.out.println("Robot without shelf at: [" + robotCoordinates[0] + "," + robotCoordinates[1] + "]");
     			
     		}
     	}
     	
     	
     	oldRobots = (HashMap<Robot, int[]>) robots.clone();
-    	oldShelves = (HashMap<Integer, int[]>) shelves.clone();
-    	
+    	oldShelves = (ArrayList<Shelf>) shelves.clone();
     }
     
     /**
