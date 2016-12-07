@@ -97,4 +97,14 @@ public class Shelf {
 		return this.ItemsContained;
 	}
 	
+	// Get if shelf is being carried
+	boolean IsBeingCarried(){
+		return this.BeingCarried;
+	}
+	
+	// Get if shelf is at home space
+	boolean IsHome(){
+		return(this.CurRow == this.HomeRow && this.CurCol == this.HomeCol);
+	}
+	
 }
