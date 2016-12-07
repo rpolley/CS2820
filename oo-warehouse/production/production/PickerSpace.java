@@ -6,9 +6,9 @@ package production;
  * Picker object
  */
 
-public class Pick extends DrivableSpaceType {
+public class PickerSpace extends DrivableSpaceType {
 	
-	public Pick(int row, int col){
+	public PickerSpace(int row, int col){
 		this.name = "Picking Station";
 		this.row = row;
 		this.col = col;

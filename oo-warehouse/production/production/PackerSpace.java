@@ -6,9 +6,9 @@ package production;
  * Packer object
  */
 
-public class Pack extends DrivableSpaceType {
+public class PackerSpace extends DrivableSpaceType {
 	
-	public Pack(int row, int col){
+	public PackerSpace(int row, int col){
 		this.name = "Packing Station";
 		this.row = row;
 		this.col = col;

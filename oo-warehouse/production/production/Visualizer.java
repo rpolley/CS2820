@@ -96,12 +96,12 @@ public class Visualizer {
         			initialSetup.put(coordinates,new JLabel(chargerIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
-        		}else if(here instanceof Pick){
+        		}else if(here instanceof PickerSpace){
         			labelGrid.put(coordinates,new JLabel(pickerIcon));
         			initialSetup.put(coordinates,new JLabel(pickerIcon));
     				panel.add(labelGrid.get(coordinates));
     				continue;
-        		}else if(here instanceof Pack){
+        		}else if(here instanceof PackerSpace){
         			labelGrid.put(coordinates,new JLabel(packerIcon));
         			initialSetup.put(coordinates,new JLabel(packerIcon));
     				panel.add(labelGrid.get(coordinates));
