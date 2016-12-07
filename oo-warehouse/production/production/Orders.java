@@ -17,6 +17,7 @@ public class Orders implements FrameListener{
 	HashMap<Integer, order> initialOrders;
 	Queue<Integer> ordersQueue; //LinkedList and the Integer is the OrderID
 	public Inventory I;
+	public RobotScheduler RS;
 
 
 	/**
@@ -103,7 +104,23 @@ public class Orders implements FrameListener{
 		}
 		return itemAndQtyPresent;
 	}
-
-
+	
+	/**
+	 * @author Chaitanya Kovuri
+	 * @param customerOrder
+	 * @param currentItemIndex
+	 * @return Point, i.e. Shelf Location for the wanted item
+	 * so we can use that Point as an argument for RobotScheduler.
+	 */
+	
+	public Point itemShelfLoc(order customerOrder, int currentItemIndex){
+		String[] items = customerOrder.getArrayOfItemNames();
+		String itemName = items[currentItemIndex];
+		Point fetchShelf;
+		fetchShelf = I.readPosition(itemName);
+		return fetchShelf;
+	}
+	
+	
 
 }
