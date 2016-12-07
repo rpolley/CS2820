@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @author Cole Petersen
  * 
  * Shelf object:
- * Represents shelves themselves. 
+ * Represents shelves themselves.
  */
 
 public class Shelf {
