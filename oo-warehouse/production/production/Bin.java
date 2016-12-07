@@ -1,29 +1,33 @@
 package production;
 /**
  * 
- * @author Anani
+ * @author rpolley
  * Bin full with Items Ordered
  * and available to push on the belt
  */
 
 public class Bin {
-	Picker pi;
-	order Order;
-	boolean finished;
-	int k = pi.getPickerp();	
-	public Bin(){
-		if (k!=1)return ; //Picker present
-		Order = null; finished = false;}
-	public boolean isFinished(){
-		return finished;}
-	public void setFinished(){
-		finished = true;}
-	public order getOrder(){
-		return Order;}
-	public void setOrder(order o){
-		Order = o;}	
-	public String toString(){
-		return "Bin";
+	int pos;
+	MockBelt on;//the belt this bin is on
+	//todo: way to hold items
+	public Bin(MockBelt b){
+		pos = 0;
+		on = b;
 	}
-
+	public boolean atStart(){
+		return pos==0;
+	}
+	public boolean atEnd(){
+		return pos==on.beltarea.length;
+	}
+	public BeltSpace getPosition(){
+		return on.beltarea[pos];
+	}
+	/*
+	 * @author rpolley
+	 * move the bin down the belt
+	 */
+	public void move(){
+		pos++;
+	}
 }
