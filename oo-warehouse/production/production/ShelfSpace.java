@@ -1,9 +1,9 @@
 package production;
 
-/*
+/**
  * @author Cole Petersen
  * 
- * Shelf Space object
+ * Shelf Space object:
  */
 
 public class ShelfSpace extends DrivableSpaceType {

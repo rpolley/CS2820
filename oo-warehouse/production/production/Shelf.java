@@ -2,7 +2,7 @@ package production;
 
 import java.util.HashMap;
 
-/*
+/**
  * @author Cole Petersen
  * 
  * Shelf object:

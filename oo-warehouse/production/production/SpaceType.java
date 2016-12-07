@@ -1,6 +1,6 @@
 package production;
 
-/*
+/**
  * @author Cole Petersen
  * 
  * Space Type abstract class:

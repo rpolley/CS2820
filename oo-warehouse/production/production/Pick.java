@@ -1,9 +1,9 @@
 package production;
 
-/*
+/**
  * @author Cole Petersen
  * 
- * Picker object
+ * Picker space object
  */
 
 public class Pick extends DrivableSpaceType {

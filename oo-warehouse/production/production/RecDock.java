@@ -1,6 +1,6 @@
 package production;
 
-/*
+/**
  * @author Cole Petersen
  * 
  * Receiving Dock object

@@ -1,5 +1,12 @@
 package production;
 
+/**
+ * @author Cole Petersen
+ * 
+ * Custom Point object:
+ * Uses row/col instead of x/y
+ */
+
 public class Point {
 	
 	int row;
