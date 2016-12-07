@@ -107,6 +107,7 @@ public class Floor {
 		// put belt along left wall. Store belt locations.
 		for(int i = 0; i < rows; i++){
 			Point point = new Point(i, 0);
+			layout[i][0] = new BeltSpace(i,0);
 			this.BeltLocs.add(point);
 		}
 		Packer packer = new Packer(this, BeltLocs,1,1,pack);
