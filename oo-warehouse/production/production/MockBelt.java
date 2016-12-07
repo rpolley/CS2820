@@ -13,7 +13,7 @@ public class MockBelt implements Belt{
 		Bin binMade;		
 	 	private int L; // Belt length
 	 	//private int nC; // number of Items
-	 	public  Point[] beltarea;
+	 	public  BeltSpace[] beltarea;
 		//Call Floor object
 		//to locate the belt area (place),cells and other
 		//Initialisation Bin to null
@@ -23,7 +23,12 @@ public class MockBelt implements Belt{
 		this.pi = pi;
 		beltarea = n.getBeltLocs();
 		binMade = null;
-		L=beltarea.size();  		
+		L=beltarea.size();
+		this.beltarea = new BeltSpace[L];
+		for(int i = 0; i<L; i++){
+			Point loc = beltarea.get(i);
+			this.beltarea[i] = new BeltSpace(loc.row,loc.col);
+		}
  		//this.nC=nC	
 	}
 	private void init(){ 
