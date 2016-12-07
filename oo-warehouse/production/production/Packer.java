@@ -7,19 +7,12 @@ import java.util.ArrayList;
  * @author Anani
  * bad code removed by rpolley
  */
-public class Packer{
-	Floor n; 	
-	private Pack location;
+public class Packer extends PackerSpace{
  	public  ArrayList<Point> beltarea;
  	
- 	public Packer(Floor n,ArrayList<Point> beltarea, Pack p){
- 		this.n = n;
-		beltarea = n.getBeltLocs();
- 		this.location = p;
- 		
- 	}
- 	private Pack getLocation(){
- 		return location;
+ 	public Packer(ArrayList<Point> beltarea, int row, int col){
+ 		super(row, col);
+		this.beltarea = beltarea;
  	}
 	public void processItems() {
 		// TODO Auto-generated method stub
