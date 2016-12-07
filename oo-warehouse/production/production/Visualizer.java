@@ -25,6 +25,7 @@ public class Visualizer {
 	private static HashMap<Robot, int[]> oldRobots;
 	private static ArrayList<Shelf> oldShelves;
 	private static ArrayList<int[]> floorCoords;
+	private static ArrayList<int[]> preMovePositions;
 	private static final ImageIcon beltIcon = new ImageIcon("res/Belt.png");
 	private static final ImageIcon floorTileIcon = new ImageIcon("res/Highway.png");
 	private static final ImageIcon highwayIcon = new ImageIcon("res/Highway.png");
@@ -52,8 +53,12 @@ public class Visualizer {
 		shelves = floor.ShelfList;
 		labelGrid = new HashMap<int[],JLabel>();
 		initialSetup = new HashMap<int[],JLabel>();
-		oldRobots = (HashMap<Robot, int[]>) robots.clone();
-		oldShelves = (ArrayList<Shelf>) shelves.clone();
+		//oldRobots = (HashMap<Robot, int[]>) robots.clone();
+		//oldShelves = (ArrayList<Shelf>) shelves.clone();
+		oldRobots = new HashMap<Robot,int[]>();
+		oldShelves = new ArrayList<Shelf>();
+		copyMovables();
+		preMovePositions = new ArrayList<int[]>();
 		
 		window = new JFrame("Warehouse Visualizer");
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -152,7 +157,28 @@ public class Visualizer {
         	}
         }
 */        
-        initialSetup = (HashMap<int[], JLabel>) labelGrid.clone();
+        //initialSetup = (HashMap<int[], JLabel>) labelGrid.clone();
+    }
+    
+    /**
+    *
+    * @author James Vipond
+    * @result Creates deep copies of the shelf and robot lists to remember their location before moving
+    */
+    private static void copyMovables(){
+    	if(oldRobots.size() > 0){
+    		oldRobots.clear();
+    	}
+    	if(oldShelves.size() > 0){
+    		oldShelves.clear();
+    	}
+    	Set<Robot> robotKeys = (Set<Robot>)robots.keySet();
+    	for(Robot key : robotKeys){
+    		oldRobots.put(new Robot(key), robots.get(key));
+    	}
+    	for(Shelf s : shelves){
+    		oldShelves.add(s);
+    	}
     }
  
     /**
@@ -174,6 +200,8 @@ public class Visualizer {
     */
     private static void placeMovables(){
     	
+    	
+    	/*
     	java.util.Iterator<Robot> oldRobotIter = oldRobots.keySet().iterator();
     	
     	
@@ -200,6 +228,7 @@ public class Visualizer {
     				JLabel oldLabel = labelGrid.get(c);
     	    		JLabel originalLabel = initialSetup.get(c);
     	    		oldLabel.setIcon(originalLabel.getIcon());
+    	    		System.out.println("Removed old icon at: [" + c[0] + "," + c[1] + "]");
     			}
     		}
     		//System.out.println(coordinates[0]);
@@ -210,6 +239,22 @@ public class Visualizer {
     		//labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());
     		//System.out.println("Remove old robot");
     	}
+    	*/
+    	
+    	//returns the tile that the robot moved from back to its original icon
+    	for(int[] pos : preMovePositions){
+    		System.out.println("Last Tick there was a robot at: [" + pos[0] + "," + pos[1] + "]");
+    		for(int[] c : floorCoords){
+    			if(Arrays.equals(pos,c)){
+    				JLabel oldLabel = labelGrid.get(c);
+    	    		JLabel originalLabel = initialSetup.get(c);
+    	    		oldLabel.setIcon(originalLabel.getIcon());
+    	    		System.out.println("Should be: " + floorTileIcon);
+    	    		System.out.println("Is: " + originalLabel.getIcon());
+    			}
+    		}
+    	}
+    	preMovePositions.clear();
     	
     	java.util.Iterator<Robot> robotIter = robots.keySet().iterator();
     	
@@ -242,6 +287,7 @@ public class Visualizer {
         			if(Arrays.equals(robotCoordinates,c)){
         				JLabel newLabel = labelGrid.get(c);
         	    		newLabel.setIcon(robotShelfIcon);
+        	    		preMovePositions.add(c);
         			}
         		}
     			System.out.println("Robot with shelf at: [" + robotCoordinates[0] + "," + robotCoordinates[1] + "]");
@@ -250,6 +296,7 @@ public class Visualizer {
         			if(Arrays.equals(robotCoordinates,c)){
         				JLabel newLabel = labelGrid.get(c);
         				newLabel.setIcon(robotIcon);
+        				preMovePositions.add(c);
         			}
         		}
     			System.out.println("Robot without shelf at: [" + robotCoordinates[0] + "," + robotCoordinates[1] + "]");
@@ -257,9 +304,19 @@ public class Visualizer {
     		}
     	}
     	
+    //Uncomment to test a robot that moves straight down	
+    /*	
+    	java.util.Iterator<Robot> testIter = robots.keySet().iterator();
+    	while(testIter.hasNext()){
+    		Robot r = testIter.next();
+    		r.move(r.row+1,r.col);
+    	}
+    */
     	
-    	oldRobots = (HashMap<Robot, int[]>) robots.clone();
-    	oldShelves = (ArrayList<Shelf>) shelves.clone();
+    	//oldRobots = (HashMap<Robot, int[]>) robots.clone();
+    	//oldShelves = (ArrayList<Shelf>) shelves.clone();
+    	copyMovables();
+    	
     }
     
     /**
