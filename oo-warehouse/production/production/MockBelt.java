@@ -42,7 +42,7 @@ public class MockBelt implements Belt{
 		pa.processItems();
 	}
 	public boolean binAvailable(){
-		if(bins.size()>0){
+		if(bins.size()>0&&bins.peek().atEnd()){
 			return true;
 		}
 		else{
