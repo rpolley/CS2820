@@ -29,6 +29,7 @@ public class Floor {
 	public ArrayList<Point> FloorSpaceLocs = new ArrayList<Point>();
 	public ArrayList<Shelf> ShelfList = new ArrayList<Shelf>();
 	public int a;
+	private MockBelt belt;
 	
 	
 	public Floor(int rows, int cols, int AmtRobots) {
@@ -111,7 +112,7 @@ public class Floor {
 			Point point = new Point(i, 1);
 			this.PickLocs.add(point);
 		}
-		new MockBelt(this,BeltLocs,packer,picker);
+		belt = new MockBelt(this,BeltLocs,packer,picker);
 		
 		// Put shelf spaces of width 2 on floor. Set up list of shelf spaces.
 		// Leave HighwayWidth spaces between them and other objects, including each other.
@@ -179,6 +180,10 @@ public class Floor {
 		return BeltLocs;
 	}
 	
+	public MockBelt getBelt() {
+		return belt;
+	}
+
 	ArrayList<Point> getPackLocs(){
 		return PackLocs;
 	}

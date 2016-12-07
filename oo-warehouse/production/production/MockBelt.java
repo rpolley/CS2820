@@ -54,4 +54,7 @@ public class MockBelt implements Belt{
 	public Bin getBin() {
 		return bins.poll();
 	}
+	public Queue<Bin> getBins(){
+		return bins;
+	}
 }
