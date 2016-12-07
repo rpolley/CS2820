@@ -243,14 +243,14 @@ public class Visualizer {
     	
     	//returns the tile that the robot moved from back to its original icon
     	for(int[] pos : preMovePositions){
-    		System.out.println("Last Tick there was a robot at: [" + pos[0] + "," + pos[1] + "]");
+    		//System.out.println("Last Tick there was a robot at: [" + pos[0] + "," + pos[1] + "]");
     		for(int[] c : floorCoords){
     			if(Arrays.equals(pos,c)){
     				JLabel oldLabel = labelGrid.get(c);
     	    		JLabel originalLabel = initialSetup.get(c);
     	    		oldLabel.setIcon(originalLabel.getIcon());
-    	    		System.out.println("Should be: " + floorTileIcon);
-    	    		System.out.println("Is: " + originalLabel.getIcon());
+    	    		//System.out.println("Should be: " + floorTileIcon);
+    	    		//System.out.println("Is: " + originalLabel.getIcon());
     			}
     		}
     	}
