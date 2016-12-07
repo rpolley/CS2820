@@ -167,12 +167,12 @@ public class Master {
 		this.initialInventory = new ArrayList();
 		//initialize  the robot scheduler
 		//since it can add robots at any time, robots.addRobots needs to be called
+		this.floor = new Floor(10,10,1);
 		this.robots = new RobotScheduler();
 		this.robots.addRobots();
 		this.inventory = new Inventory(initialInventory);
 		this.orders = new Orders();
 		//initialize the floor in a 10 by 10 configuration with 1 robot
-		this.floor = new Floor(10,10,1);
 		this.visualizer = new Visualizer();
 	}
 	/*
