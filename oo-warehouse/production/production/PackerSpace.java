@@ -1,9 +1,9 @@
 package production;
 
-/*
+/**
  * @author Cole Petersen
  * 
- * Packer object
+ * PackerSpace object
  */
 
 public class PackerSpace extends DrivableSpaceType {

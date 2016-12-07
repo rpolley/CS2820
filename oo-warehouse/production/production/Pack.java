@@ -3,13 +3,13 @@ package production;
 /**
  * @author Cole Petersen
  * 
- * PickerSpace object
+ * Packer space object
  */
 
-public class PickerSpace extends DrivableSpaceType {
+public class Pack extends DrivableSpaceType {
 	
-	public PickerSpace(int row, int col){
-		this.name = "Picking Station";
+	public Pack(int row, int col){
+		this.name = "Packing Station";
 		this.row = row;
 		this.col = col;
 		this.CanDriveOn = true;
