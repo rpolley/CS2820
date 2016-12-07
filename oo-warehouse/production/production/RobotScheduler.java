@@ -115,43 +115,43 @@ public class RobotScheduler implements FrameListener {// implements Time
 		if (toLocationX == robotx && toLocationY == roboty) {
 			i.state++;
 		}
-		if (toLocationX - robotx < 0) {
-			i.move(robotx - 1, roboty);
+		if (toLocationY - roboty < 0) {
+			i.move(robotx, roboty-1);
 			// if it isnt a legal move, it wont move that means we can
 			// do
 			// something else
 			// System.out.println(RobotLocs.get(i)[0]+"yolo");
-			if (i.isLegalMove(robotx - 1, roboty) == false) {
+			if (i.isLegalMove(robotx, roboty-1) == false) {
 				check = 0;
 			} else {
 				check = 1;
 			}
-		} else if (toLocationX - robotx > 0) {
-			i.move(robotx + 1, roboty);
-			if (i.isLegalMove(robotx + 1, roboty) == false) {
+		} else if (toLocationY - roboty > 0) {
+			i.move(robotx , roboty +1);
+			if (i.isLegalMove(robotx , roboty+1) == false) {
 			} else {
 				check = 1;
 			}
 		}
 
-		if (check == 0 && toLocationY - roboty < 0) {
-			i.move(robotx, roboty - 1);
+		if (check == 0 && toLocationX - robotx< 0) {
+			i.move(robotx-1, roboty);
 			check = 1;
-		} else if (check == 0 && toLocationY - roboty > 0) {
-			i.move(robotx, roboty + 1);
+		} else if (check == 0 && toLocationX - robotx > 0) {
+			i.move(robotx+1, roboty);
 			check = 1;
 		}
 		if (check == 0) {
-			if (toLocationY - roboty < 0) {
-				i.move(robotx, roboty + 1);
+			if (toLocationX - robotx < 0) {
+				i.move(robotx+1, roboty);
 			} else {
-				i.move(robotx, roboty - 1);
+				i.move(robotx -1, roboty);
 			}
 		}
 
 		check = 0;
-		System.out.println("Robot x loc " + robotx + " Robot y loc " + roboty);
-		System.out.println("Shelf x loc " + toLocationX + " Shelf y loc " + toLocationY);
+		//System.out.println("Robot x loc " + robotx + " Robot y loc " + roboty);
+		//System.out.println("Shelf x loc " + toLocationX + " Shelf y loc " + toLocationY);
 	}
 
 	/**
