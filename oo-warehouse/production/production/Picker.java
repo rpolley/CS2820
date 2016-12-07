@@ -16,12 +16,12 @@ public class Picker {
 	private Pick location;
  	public  ArrayList<Point> beltarea;
  	
-	public Picker(Floor n,ArrayList<Point> beltarea, int Pickerp,int statepicker, Pick p){
+	public Picker(Floor n,ArrayList<Point> beltarea, Pick p){
 		this.n = n;
 		beltarea = n.getBeltLocs();	
 		L=beltarea.size();
-		this.Pickerp=Pickerp;
-		this.statepicker=statepicker;
+		this.Pickerp=1;
+		this.statepicker=1;
 		this.location = p;
 		Picker=new String[p.row][p.col]; //Picker position
 		init();

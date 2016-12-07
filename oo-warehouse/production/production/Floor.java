@@ -110,8 +110,8 @@ public class Floor {
 			layout[i][0] = new BeltSpace(i,0);
 			this.BeltLocs.add(point);
 		}
-		Packer packer = new Packer(this, BeltLocs,1,1,pack);
-		Picker picker = new Picker(this, BeltLocs,1,1,pick);
+		Packer packer = new Packer(this, BeltLocs,pack);
+		Picker picker = new Picker(this, BeltLocs,pick);
 		new MockBelt(this,BeltLocs,packer,picker);
 		
 		// Put shelf spaces of width 2 on floor. Set up list of shelf spaces.

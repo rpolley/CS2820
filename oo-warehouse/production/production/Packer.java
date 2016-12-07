@@ -16,12 +16,12 @@ public class Packer{
  	private Pack location;
  	public  ArrayList<Point> beltarea;
  	
- 	public Packer(Floor n,ArrayList<Point> beltarea, int Packerp, int statepacker, Pack p){
+ 	public Packer(Floor n,ArrayList<Point> beltarea, Pack p){
  		this.n = n;
 		beltarea = n.getBeltLocs();
 		L=beltarea.size();
- 		this.Packerp=Packerp; 		
- 		this.statepacker=statepacker;
+ 		this.Packerp=1; 		
+ 		this.statepacker=1;
  		this.location = p;
  		Packer=new String[p.row][p.col];//Packer postion
  		init();

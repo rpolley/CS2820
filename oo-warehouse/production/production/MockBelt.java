@@ -4,7 +4,7 @@ import java.util.ArrayList;
 	/**
 	 * 
 	 * @author Anani
-	 *
+	 * fixed by rpolley
 	 */
 public class MockBelt implements Belt{		
 		Floor n;
@@ -13,7 +13,7 @@ public class MockBelt implements Belt{
 		Bin binMade;		
 	 	private int L; // Belt length
 	 	//private int nC; // number of Items
-	 	public  BeltSpace[] beltarea;
+	 	public  BeltSpace[] beltarea;//if you change this back to String[] your commit dies
 		//Call Floor object
 		//to locate the belt area (place),cells and other
 		//Initialisation Bin to null
