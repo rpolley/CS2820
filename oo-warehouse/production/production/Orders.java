@@ -16,17 +16,20 @@ public class Orders implements FrameListener{
 	//All the below are Instance variables.
 	HashMap<Integer, order> initialOrders;
 	Queue<Integer> ordersQueue; //LinkedList and the Integer is the OrderID
+	public Inventory I;
 
 
 	/**
-         * @param nothing for now. But might change later on.
-         */
+	 * @author Chaitanya Kovuri
+     * @param None
+     * 
+     */
 	public Orders () {
 		//using "order" instead of Object because
 		//wont have to cast back while calling getters.
-                Master.master.subscribe(this);
-		initialOrders  = new HashMap<Integer,order>();
-		ordersQueue = new LinkedList<Integer>();
+        Master.master.subscribe(this);
+		initialOrders  = new HashMap<Integer,order>(); //Contains OrderID and other order class Details
+		ordersQueue = new LinkedList<Integer>(); // Contains only the OrderID
 	}
 
         public void onFrame(){
@@ -46,15 +49,12 @@ public class Orders implements FrameListener{
 	public void generateOrder (int OrderID, HashMap<String,Integer> itemAndQty, String address){
 		int OrderIDcpy = OrderID;
 		order CustomerOrder = new order (OrderID, itemAndQty, address);
-
-		/*Create Use Boolean verifyOrderItems() method here to see if customerOrder is
-		 * in the warehouse.
-		 *
-		 * if (verifyOrderItems == true){ // then proceed with generating new Order.
-		 */
-
-		initialOrders.put(OrderIDcpy, CustomerOrder); //HashMap contains all the Info on Orders
-		ordersQueue.offer(OrderIDcpy); //This new order is on a queue
+		 //if (verifyOrderItems == true){ // then proceed with generating new Order.
+		if(verifyOrderItems(CustomerOrder)==true){
+			initialOrders.put(OrderIDcpy, CustomerOrder); //HashMap contains all the Info on Orders
+			ordersQueue.offer(OrderIDcpy); //This new order is on a queue
+		}
+		//else { Notify the Inventory Subsystem}
 	}
 
 
@@ -87,20 +87,21 @@ public class Orders implements FrameListener{
          * available in the warehouse Inventory.
          */
 	public boolean verifyOrderItems (order customerOrder){
-		boolean itemsPresent;
-		boolean qtyPresent;
-		boolean bothPresent = true; //This is TRUE if both items and quantities are present.
-		Set items = customerOrder.getSetOfItems();
-		Collection <Integer> qty = customerOrder.getItemQty();
+		boolean checkExistence=false;
+		boolean itemAndQtyPresent = true; //This is TRUE if both items and quantities are present.
+		String[] items = customerOrder.getArrayOfItemNames();
+		Integer[] qty = customerOrder.getItemQty();
 		int listLength = customerOrder.getNumberOfItems();
 		for (int i=0; i<listLength; i++){
 
-			/*Use loop to check if item & quantity Present.
-			 * ALL ITEMS & Quantity HAVE TO BE PRESENT for TRUE
-			 * compare 2 bool's for result of "bothPresent"
+			/*Using for loop to check if item & quantity Present.
+			 * ALL ITEMS & Quantity HAVE TO BE PRESENT for 
+			 * itemAndQtyPresent to be TRUE
 			 */
+			checkExistence = I.checkExistWithQty(items[i],qty[i]);
+			itemAndQtyPresent = checkExistence && itemAndQtyPresent;	
 		}
-		return bothPresent;
+		return itemAndQtyPresent;
 	}
 
 
