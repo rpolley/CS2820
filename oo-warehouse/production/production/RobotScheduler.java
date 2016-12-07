@@ -27,7 +27,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 	 *         initial locations so there is a void return.
 	 */
 	public void addRobots() {
-		Robot robo1 = new Robot(5, 5);
+		Robot robo1 = new Robot(5, 4);
 		int[] temp = new int[2];
 		temp[0] = robo1.row;
 		temp[1] = robo1.col;
