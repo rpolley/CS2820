@@ -227,7 +227,7 @@ public class Visualizer {
     				if(s.CurRow == s.HomeRow && s.CurCol == s.HomeCol){
     				JLabel oldLabel = labelGrid.get(c);
     	    		oldLabel.setIcon(shelfIcon);
-    	    		System.out.println("Shelf at: [" + s.CurRow + "," + s.CurCol + "]" );
+    	    		//System.out.println("Shelf at: [" + s.CurRow + "," + s.CurCol + "]" );
     				}
     			}
     		}
