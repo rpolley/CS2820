@@ -31,6 +31,22 @@ public class Robot extends RobotScheduler {
 		temp[1]=startingy;
 		//RobotLocs.put(this, temp);
 	}
+	
+	/**
+	 * 
+	 * @author James Vipond
+	 * @param Robot to copy
+	 * @result Copy Constructor
+	 */
+	public Robot(Robot original){
+		row = original.row;
+		col = original.col;
+		hasShelves = original.hasShelves;
+		inUse = original.inUse;
+		atCharger = original.atCharger;
+		batterylife = original.batterylife;
+	}
+	
 	/**
 	 * @param nothing, but we do need to know what robot we are talking about
 	 * @return true if the robot is carrying shelves false otherwise
