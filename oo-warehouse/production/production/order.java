@@ -88,5 +88,8 @@ public class order {
 		return this.status;
 	}
 
+	public String getStatus(){
+		return this.status;
+	}
 
 }
