@@ -1,11 +1,12 @@
 package production;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
  * 
  * @author Anani
- * bad code removed by rpolley
+\ * bad code removed by rpolley
  */
 public class Packer extends PackerSpace{
  	public  ArrayList<Point> beltarea;
