@@ -89,6 +89,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 		if (i == null) {
 			return;
 		}
+		i.state=0;
 		makeMoveDecision(i, locids);
 		moveCharger(i);
 	}
@@ -206,7 +207,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 			// resets robot
 			i.arrivedatDestination = false;
 			i.inUse = false;
-			i.state = 0;
+			i.state = -1;
 
 		}
 
