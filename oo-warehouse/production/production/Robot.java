@@ -1,3 +1,4 @@
+
 package production;
 /**
  *
@@ -114,15 +115,15 @@ public class Robot extends RobotScheduler {
 	 * @return boolean, if there is a shelf in the way don't go that way if our robot has a shelf already
 	 * will return true if its a legal move and false otherwise
 	 */
-	public boolean isLegalMove(int toX, int toY) {
-		int[] checkxandy = new int[2];
-		checkxandy[0] = toX;
-		checkxandy[1] = toY;
+	public boolean isLegalMove(int torow, int tocol) {
 		// for right now the only illegal move is when something with a shelf,
 		// is runnign into a shelf.
 		if (this.hasShelves == true) {
-			for (int q : ShelvesLocs.keySet()) {
-				if (ShelvesLocs.get(q)[0] == toX && ShelvesLocs.get(q)[1] == toY) {
+			for (Point q : TempShelfLocs) {
+				if (q.row == torow && q.col == tocol) {
+					if(this.state==2){
+						return true;
+					}
 					return false;
 				}
 			}

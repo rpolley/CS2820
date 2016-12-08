@@ -42,11 +42,14 @@ public class RobotScheduler implements FrameListener {// implements Time
 			ShelvesLocs.put(tempcount, array1);
 			tempcount++;
 		}
+		charger=Master.master.getFloor().getChargerLocs();
+		
 
 	}
 
-	private ArrayList<Point> TempShelfLocs;
+	public ArrayList<Point> TempShelfLocs;
 	public int ordernumber;
+	public ArrayList<Point> charger;
 	// this is gonna be robots, and their locations
 	// robots will each be a assigned an integer
 	public Queue<int[]> RequestQueue;
@@ -86,9 +89,10 @@ public class RobotScheduler implements FrameListener {// implements Time
 		if (i == null) {
 			return;
 		}
-		i.state=0;
+		if (i.state == -1 || i.state== 3) {
+			i.state = 0;
+		}
 		makeMoveDecision(i, locids);
-		moveCharger(i);
 	}
 
 	/**
@@ -181,7 +185,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 					}
 
 				}
-				i.state++;
+				i.state = 1;
 			} else {
 				moveRobot(i, locid[0], locid[1]);
 			}
@@ -190,17 +194,29 @@ public class RobotScheduler implements FrameListener {// implements Time
 		} // moving to the belts
 		else if (i.state == 1) {
 			if (i.row == locid[2] && i.col == locid[3]) {
-				i.state++;
+				i.state = 2;
 			} else {
 				moveRobot(i, locid[2], locid[3]);
 			}
 		} else if (i.state == 2) {
 			if (i.row == locid[0] && i.col == locid[1]) {
-				i.state++;
+				i.state = 3;
+				i.carrying = null;
 			} else {
 				moveRobot(i, locid[0], locid[1]);
 			}
-		} else {
+		} else if(i.state==3){
+			if(i.row == charger.get(0).row && i.col== charger.get(0).col){
+				i.Charging();
+				i.atCharger=true;
+			}
+			else{
+			moveRobot(i, charger.get(0).row, charger.get(1).col);
+			}
+		}
+		
+		
+		else {
 			// resets robot
 			i.arrivedatDestination = false;
 			i.inUse = false;
@@ -219,50 +235,6 @@ public class RobotScheduler implements FrameListener {// implements Time
 	 *
 	 * @param i
 	 */
-	public void moveCharger(Robot i) {
-		if (i.batterylife > .03) {
-			return;
-		}
-		if (i.inUse == false) {
-			return;
-		}
-		int toLocationX = 8;
-		int check = 0;
-		// temp sets loction of charger at 8,8
-		int toLocationY = 8;
-		int robotx = RobotLocs.get(i)[0];
-		int roboty = RobotLocs.get(i)[1];
-		if (toLocationX == robotx && toLocationY == roboty) {
-			if (i.inUse == true) {
-				i.Charging();
-			}
-
-		}
-		if (toLocationX - robotx < 0) {
-			i.move(robotx - 1, roboty);
-			// if it isnt a legal move, it wont move that means we can
-			// do
-			// something else
-			// System.out.println(RobotLocs.get(i)[0]+"yolo");
-			if (i.isLegalMove(robotx - 1, roboty) == false) {
-				check = 0;
-			} else {
-				check = 1;
-			}
-		} else if (toLocationX - robotx > 0) {
-			i.move(robotx + 1, roboty);
-			if (i.isLegalMove(robotx + 1, roboty) == false) {
-			} else {
-				check = 1;
-			}
-		}
-		if (check == 0 && toLocationY - roboty < 0) {
-			i.move(robotx, roboty - 1);
-		} else if (check == 0 && toLocationY - roboty > 0) {
-			i.move(robotx, roboty + 1);
-		}
-
-	}
 
 	/**
 	 *
@@ -276,7 +248,6 @@ public class RobotScheduler implements FrameListener {// implements Time
 		for (Robot i : RobotLocs.keySet()) {
 			if (i.getBatteryLife() < .1) {
 				i.inUse = true;
-				moveCharger(i);
 				continue;
 			}
 			i.inUse = true;
