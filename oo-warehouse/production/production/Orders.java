@@ -21,6 +21,7 @@ public class Orders implements FrameListener{
 	private RobotScheduler RS;
 	private Floor F;
 	private Point P;
+	boolean pickerNotification=false;
 
 
 	/**
@@ -35,12 +36,12 @@ public class Orders implements FrameListener{
 		initialOrders  = new HashMap<Integer,order>(); //Contains OrderID and other order class Details
 		ordersQueue = new LinkedList<Integer>(); // Contains only the OrderID
 		remainingOrderItems = new HashMap<Integer, Integer>();
-		F = new Floor(10,10,1);
+		//F = new Floor(10,10,1);
 	}
 
         public void onFrame(){
         	Integer OrderID = ordersQueue.peek(); //Returns value at the head, otherwise returns null.
-        	if (OrderID==null){
+        	if (OrderID==null){ //Null Pointer Exception because cant compare int with null. Must be Integer
         		System.out.println("No orders to process");
         		return;
         	}
@@ -59,8 +60,12 @@ public class Orders implements FrameListener{
         			Point shelfPosition = itemShelfLoc(currentOrder, numOfRemainingItems-1);
         			Point pickerStation = new Point(10,2); //Hardcoding it for Demo
         			RS.addRequest(shelfPosition, pickerStation);
+        			return;
         		}
         	}
+           if (orderStatus.matches("Arrived")==true){
+        	   prepareForNextOrder(OrderID, remainingOrderItems);
+           }
 
         }
 
@@ -78,13 +83,13 @@ public class Orders implements FrameListener{
 		int OrderIDcpy = OrderID;
 		order CustomerOrder = new order (OrderID, itemAndQty, address);
 		 //if (verifyOrderItems == true){ // then proceed with generating new Order.
-		if(verifyOrderItems(CustomerOrder)==true){
+		//if(verifyOrderItems(CustomerOrder)==true){
 			initialOrders.put(OrderIDcpy, CustomerOrder); //HashMap contains all the Info on Orders
 			ordersQueue.offer(OrderIDcpy); //This new order is on a queue
-		}
-		else{
-			System.out.println("Required Items and Quantities not present for the OrderID: " + OrderIDcpy);
-		}
+		//}
+		//else{
+			//System.out.println("Required Items and Quantities not present for the OrderID: " + OrderIDcpy);
+		//}
 	}
 
 
@@ -158,6 +163,7 @@ public class Orders implements FrameListener{
 		int orderSize = customerOrder.getNumberOfItems();
 		remainingOrderItems.put(nextOrderID, orderSize);
 	}
+	
 
-
+	
 }
