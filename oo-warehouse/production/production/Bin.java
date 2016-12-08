@@ -11,14 +11,14 @@ public class Bin {
 	MockBelt on;//the belt this bin is on
 	//todo: way to hold items
 	public Bin(MockBelt b){
-		pos = 0;
 		on = b;
+		pos = on.beltarea.length-1;
 	}
 	public boolean atStart(){
-		return pos==0;
+		return pos==on.beltarea.length-1;
 	}
 	public boolean atEnd(){
-		return pos==on.beltarea.length;
+		return  pos==0;
 	}
 	public BeltSpace getPosition(){
 		return on.beltarea[pos];
@@ -28,6 +28,6 @@ public class Bin {
 	 * move the bin down the belt
 	 */
 	public void move(){
-		pos++;
+		pos--;
 	}
 }

@@ -55,6 +55,8 @@ public class Visualizer {
 		initialSetup = new HashMap<int[],JLabel>();
 		belt = floor.getBelt();
 		bins = belt.getBins();
+		//bins = new PriorityQueue<Bin>();
+		//bins.add(new Bin(belt));
 		preMovePositions = new ArrayList<int[]>();
 		
 		window = new JFrame("Warehouse Visualizer");
@@ -150,6 +152,27 @@ public class Visualizer {
     		for(int[] c : floorCoords){
     			if(Arrays.equals(beltCoordinates,c)){
     				labelGrid.get(c).setIcon(beltIcon);
+    			}
+    		}
+    	}
+    	
+    	for(Bin b : bins){
+    		int[] binCoordinates = {b.getPosition().row,b.getPosition().col};
+    		for(int[] c : floorCoords){
+    			if(Arrays.equals(binCoordinates,c)){
+    				JLabel oldLabel = labelGrid.get(c);
+    	    		if(b.atStart()){
+    	    			oldLabel.setIcon(emptyBinIcon);
+    	    			System.out.println("Empty bin at: [" + binCoordinates[0] + "," + binCoordinates[1] + "]" );
+    	    		}else if(b.atEnd()){
+    	    			oldLabel.setIcon(packageIcon);
+    	    			System.out.println("Package at: [" + binCoordinates[0] + "," + binCoordinates[1] + "]" );
+    	    		}else{
+    	    			oldLabel.setIcon(fullBinIcon);
+    	    			System.out.println("Full bin at: [" + binCoordinates[0] + "," + binCoordinates[1] + "]" );
+    	    		}
+    				
+    	    		
     			}
     		}
     	}
