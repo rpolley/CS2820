@@ -87,8 +87,10 @@ public class Orders implements FrameListener{
         		}
         		else{
         			Point shelfPosition = itemShelfLoc(currentOrder, numOfRemainingItems-1);
-        			Point pickerStation = new Point(10,2); //Hardcoding it for Demo
+        			Point pickerStation = new Point(9,2); //Hardcoding it for Demo
         			RS.addRequest(shelfPosition, pickerStation);
+        			Integer updateRemItems = numOfRemainingItems-1;
+        			remainingOrderItems.put(OrderID, updateRemItems);
         			return;
         		}
         	}
