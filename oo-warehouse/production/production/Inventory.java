@@ -439,4 +439,12 @@ public class Inventory {
          a.readPosition("C");
         
 	}
+
+
+public void populate() {
+	for(String s:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")){
+		System.out.println(s);
+		addItem(s,50);
+	}
+}
 }
