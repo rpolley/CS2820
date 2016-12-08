@@ -82,6 +82,7 @@ public class Orders implements FrameListener{
         		if(numOfRemainingItems==0){
         			orderFulfilled(OrderID);
         			remainingOrderItems.remove(OrderID);
+        			if(ordersQueue.size()==0)return;
         			Integer newOrderID = ordersQueue.peek();
         			prepareForNextOrder(newOrderID, remainingOrderItems);
         			return;
