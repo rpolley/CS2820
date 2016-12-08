@@ -28,6 +28,11 @@ public class Bin {
 	 * move the bin down the belt
 	 */
 	public void move(){
-		pos--;
+		if(pos > 0){
+			pos--;
+		}else{
+			on.getBin();
+			System.out.println("Got Bin!");
+		}
 	}
 }
