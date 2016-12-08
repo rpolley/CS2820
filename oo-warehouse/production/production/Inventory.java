@@ -104,6 +104,7 @@ public class Inventory {
 		}
     }
 	
+	
    /**
      * This method read the shelf id and each shelf's remaining capacity(50 - current item amount)
      * then put the id and its amount into a Hashmap
@@ -161,11 +162,11 @@ public class Inventory {
 						.get("Shelf#"));
 			}
 		}
-    	System.out.println(a);
+    	//System.out.println(a);
     	return a;
-
     }
-            
+        
+	
    /**
      * use Point class to get the position of the item,
      * input the itemName, then get the position
@@ -414,6 +415,7 @@ public class Inventory {
 		}
     }
 
+	
    /**main method to test for inventory
      *
      * @param args
@@ -436,7 +438,7 @@ public class Inventory {
         a.removeItem("Shoe", 2);
         a.getshelfPosition("A");
         a.getshelfPosition("G");
-         a.readPosition("C");
+        a.readPosition("C");
         
 	}
 }
