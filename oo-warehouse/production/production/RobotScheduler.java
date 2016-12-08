@@ -64,7 +64,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 		locations[0]=shelf.col;
 		locations[1]=Master.master.getFloor().GetHeight() - shelf.row;
 		locations[2]=destination.col;
-		locations[3]=Master.master.getFloor().GetHeight() - destination.row;
+		locations[3]=Master.master.getFloor().GetHeight()-destination.row;
 		RequestQueue.add(locations);
 	}
 
@@ -111,8 +111,8 @@ public class RobotScheduler implements FrameListener {// implements Time
 		int toLocationX = toX;
 		int toLocationY = toY;
 		// System.out.println(i.batterylife);
-		int robotx = i.row;
-		int roboty = i.col;
+		int robotx = i.col;
+		int roboty = Master.master.getFloor().GetHeight() - i.row;
 		// where we move the one robot to the shelve.
 		// for each tick of the interface
 		// trying to figure out a way to get around
