@@ -11,6 +11,7 @@ public class Robot extends RobotScheduler {
 	boolean inUse = false;
 	double batterylife = 1.0;
 	boolean atCharger = false;
+	//if it arrives at picker or something
 	boolean arrivedatDestination=false;
 	/*
 	 * does what 'part1' used to, I think

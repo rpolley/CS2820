@@ -181,6 +181,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 		} else if (i.state == 2) {
 			moveRobot(i, locid[0], locid[1]);
 		} else {
+			//resets robot
 			i.arrivedatDestination =false;
 			i.inUse = false;
 			i.state = 0;
