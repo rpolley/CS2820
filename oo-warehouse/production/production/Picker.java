@@ -17,7 +17,7 @@ public class Picker extends PickerSpace implements FrameListener{
 		super(row,col);
 		this.beltarea = beltarea;
 		i = Master.master.getInventory();
-		orders = new HashMap<Integer,String>()
+		orders = new HashMap<Integer,String>();
 	}
 	
 	public void onFrame(){
