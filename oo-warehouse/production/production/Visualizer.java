@@ -20,10 +20,10 @@ public class Visualizer {
 	public static int tickNumber;
 	private static HashMap<Robot,int[]> robots;
 	private static ArrayList<Shelf> shelves;
+	private static MockBelt belt;
+	private static Queue<Bin> bins;
 	private static HashMap<int[],JLabel> labelGrid;
 	private static HashMap<int[],JLabel> initialSetup;
-	private static HashMap<Robot, int[]> oldRobots;
-	private static ArrayList<Shelf> oldShelves;
 	private static ArrayList<int[]> floorCoords;
 	private static ArrayList<int[]> preMovePositions;
 	private static final ImageIcon beltIcon = new ImageIcon("res/Belt.png");
@@ -53,11 +53,8 @@ public class Visualizer {
 		shelves = floor.ShelfList;
 		labelGrid = new HashMap<int[],JLabel>();
 		initialSetup = new HashMap<int[],JLabel>();
-		//oldRobots = (HashMap<Robot, int[]>) robots.clone();
-		//oldShelves = (ArrayList<Shelf>) shelves.clone();
-		oldRobots = new HashMap<Robot,int[]>();
-		oldShelves = new ArrayList<Shelf>();
-		copyMovables();
+		belt = floor.getBelt();
+		bins = belt.getBins();
 		preMovePositions = new ArrayList<int[]>();
 		
 		window = new JFrame("Warehouse Visualizer");
@@ -124,62 +121,9 @@ public class Visualizer {
         		}
         	}
         }
-    	
-/*        for(int x = 0; x < floor.length; x++){
-        	for(int y = 0; y < floor[0].length; y++){
-        		Object here = floor[x][y];
-        		switch(here.getClass()){
-        			case (new Belt().getClass()):
-        				labelGrid.put({x,y},newJLabel(beltIcon))
-        				panel.add(labelGrid.get({x,y}));
-        				continue;
-        			case (new Highway().getClass()):
-        				labelGrid.put({x,y},newJLabel(highwayIcon))
-        				panel.add(labelGrid.get({x,y}));
-        				continue;
-        			case (new Charger().getClass()):
-        				labelGrid.put({x,y},newJLabel(chargerIcon))
-        				panel.add(labelGrid.get({x,y}));
-        				continue;
-        			case (new Pick().getClass()):
-        				labelGrid.put({x,y},newJLabel(pickerIcon))
-        				panel.add(labelGrid.get({x,y}));
-        				continue;
-        			case (new Pack().getClass()):
-        				labelGrid.put({x,y},newJLabel(packerIcon))
-        				panel.add(labelGrid.get({x,y}));
-        				continue;
-        			case (new ShelfSpace.getClass()):
-        				labelGrid.put({x,y},newJLabel(shelfZoneIcon))
-        				panel.add(labelGrid.get({x,y}));
-        				continue;
-        		}
-        	}
-        }
-*/        
-        //initialSetup = (HashMap<int[], JLabel>) labelGrid.clone();
     }
     
-    /**
-    *
-    * @author James Vipond
-    * @result Creates deep copies of the shelf and robot lists to remember their location before moving
-    */
-    private static void copyMovables(){
-    	if(oldRobots.size() > 0){
-    		oldRobots.clear();
-    	}
-    	if(oldShelves.size() > 0){
-    		oldShelves.clear();
-    	}
-    	Set<Robot> robotKeys = (Set<Robot>)robots.keySet();
-    	for(Robot key : robotKeys){
-    		oldRobots.put(new Robot(key), robots.get(key));
-    	}
-    	for(Shelf s : shelves){
-    		oldShelves.add(s);
-    	}
-    }
+
  
     /**
     *
@@ -200,46 +144,15 @@ public class Visualizer {
     */
     private static void placeMovables(){
     	
-    	
-    	/*
-    	java.util.Iterator<Robot> oldRobotIter = oldRobots.keySet().iterator();
-    	
-    	
-    	for(Shelf oldShelf : oldShelves){
-    		int[] coordinates = {oldShelf.CurRow,oldShelf.CurCol};
+    	//clears belt each frame before updating bin locations
+    	for(BeltSpace b : belt.beltarea){
+    		int[] beltCoordinates = {b.row,b.col};
     		for(int[] c : floorCoords){
-    			if(Arrays.equals(coordinates,c)){
-    				JLabel oldLabel = labelGrid.get(c);
-    	    		JLabel originalLabel = initialSetup.get(c);
-    	    		oldLabel.setIcon(originalLabel.getIcon());
+    			if(Arrays.equals(beltCoordinates,c)){
+    				labelGrid.get(c).setIcon(beltIcon);
     			}
     		}
     	}
-    	
-    	
-    	//This block reverts the icon at the location of the robot before this tick
-    	//to the original icon that it was initialized to i.e. when the robot moves
-    	//off of a shelf zone space, the icon changes from robotIcon to ShelfZoneIcon
-    	while(((java.util.Iterator<Robot>) oldRobotIter).hasNext()){
-    		Robot oldRobot = oldRobotIter.next();
-    		int[] coordinates = {oldRobot.getRow(),oldRobot.getCol()};
-    		for(int[] c : floorCoords){
-    			if(Arrays.equals(coordinates,c)){
-    				JLabel oldLabel = labelGrid.get(c);
-    	    		JLabel originalLabel = initialSetup.get(c);
-    	    		oldLabel.setIcon(originalLabel.getIcon());
-    	    		System.out.println("Removed old icon at: [" + c[0] + "," + c[1] + "]");
-    			}
-    		}
-    		//System.out.println(coordinates[0]);
-    		//System.out.println(coordinates[1]);
-    		
-    		//System.out.println(oldLabel);
-    		//System.out.println(originalLabel);
-    		//labelGrid.get(coordinates).setIcon(initialSetup.get(coordinates).getIcon());
-    		//System.out.println("Remove old robot");
-    	}
-    	*/
     	
     	//returns the tile that the robot moved from back to its original icon
     	for(int[] pos : preMovePositions){
@@ -257,13 +170,6 @@ public class Visualizer {
     	preMovePositions.clear();
     	
     	java.util.Iterator<Robot> robotIter = robots.keySet().iterator();
-    	
-    	/*
-    	while(shelfIter.hasNext()){
-    		Integer shelf = shelfIter.next();
-    		labelGrid.get(shelves.get(shelf)).setIcon(shelfIcon);
-    	}
-    	*/
     	
     	for(Shelf s : shelves){
     		int[] shelfCoordinates = {s.CurRow,s.CurCol};
@@ -313,9 +219,7 @@ public class Visualizer {
     	}
     */
     	
-    	//oldRobots = (HashMap<Robot, int[]>) robots.clone();
-    	//oldShelves = (ArrayList<Shelf>) shelves.clone();
-    	copyMovables();
+    	
     	
     }
     

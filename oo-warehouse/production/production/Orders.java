@@ -16,8 +16,8 @@ public class Orders implements FrameListener{
 	//All the below are Instance variables.
 	HashMap<Integer, order> initialOrders;
 	Queue<Integer> ordersQueue; //LinkedList and the Integer is the OrderID
-	public Inventory I;
-	public RobotScheduler RS;
+	private Inventory I;
+	private RobotScheduler RS;
 
 
 	/**
@@ -121,6 +121,14 @@ public class Orders implements FrameListener{
 		return fetchShelf;
 	}
 	
-	
+	//Point destination;
+
+	public void prepareForNextOrder(int nextOrderID, HashMap<Integer, Integer>remainingOrderItems){
+		order customerOrder = initialOrders.get(nextOrderID);
+		customerOrder.updateStatus("In Progress");
+		int orderSize = customerOrder.getNumberOfItems();
+		remainingOrderItems.put(nextOrderID, orderSize);
+	}
+
 
 }

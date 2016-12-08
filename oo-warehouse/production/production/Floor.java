@@ -28,7 +28,6 @@ public class Floor {
 	public Point RecDockLoc = new Point(0, 0);
 	public ArrayList<Point> FloorSpaceLocs = new ArrayList<Point>();
 	public ArrayList<Shelf> ShelfList = new ArrayList<Shelf>();
-	public int a;
 	private MockBelt belt;
 	
 	
