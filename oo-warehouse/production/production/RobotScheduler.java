@@ -163,12 +163,12 @@ public class RobotScheduler implements FrameListener {// implements Time
 	 * in the process of making this tickable to go along with Master class
 	 */
 	public void makeMoveDecision(Robot i, int[] locid) {
-
+		
 		// moving to shelf
 		if (i.state == 0) {
 			moveRobot(i, locid[0], locid[1]);
 			// or onFrame();
-			if (i.row == locid[0] && i.col == locid[1])
+			if (i.col == locid[0] && Master.master.getFloor().GetHeight()-i.row == locid[1])
 				i.hasShelves = true;
 		}
 		// moving to the belts
