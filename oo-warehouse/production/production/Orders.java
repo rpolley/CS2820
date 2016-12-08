@@ -15,9 +15,12 @@ public class Orders implements FrameListener{
 
 	//All the below are Instance variables.
 	HashMap<Integer, order> initialOrders;
+	HashMap<Integer, Integer> remainingOrderItems;
 	Queue<Integer> ordersQueue; //LinkedList and the Integer is the OrderID
 	private Inventory I;
 	private RobotScheduler RS;
+	private Floor F;
+	private Point P;
 
 
 	/**
@@ -31,9 +34,33 @@ public class Orders implements FrameListener{
         Master.master.subscribe(this);
 		initialOrders  = new HashMap<Integer,order>(); //Contains OrderID and other order class Details
 		ordersQueue = new LinkedList<Integer>(); // Contains only the OrderID
+		remainingOrderItems = new HashMap<Integer, Integer>();
+		F = new Floor(10,10,1);
 	}
 
         public void onFrame(){
+        	Integer OrderID = ordersQueue.peek(); //Returns value at the head, otherwise returns null.
+        	if (OrderID==null){
+        		System.out.println("No orders to process");
+        		return;
+        	}
+        	order currentOrder = initialOrders.get(OrderID);
+        	String orderStatus = currentOrder.getStatus();
+        	if (orderStatus.matches("In Progress")==true){
+        		int numOfRemainingItems = remainingOrderItems.get(OrderID);
+        		if(numOfRemainingItems==0){
+        			orderFulfilled(OrderID);
+        			remainingOrderItems.remove(OrderID);
+        			Integer newOrderID = ordersQueue.peek();
+        			prepareForNextOrder(newOrderID, remainingOrderItems);
+        			return;
+        		}
+        		else{
+        			Point shelfPosition = itemShelfLoc(currentOrder, numOfRemainingItems-1);
+        			Point pickerStation = new Point(10,2); //Hardcoding it for Demo
+        			RS.addRequest(shelfPosition, pickerStation);
+        		}
+        	}
 
         }
 
@@ -55,7 +82,9 @@ public class Orders implements FrameListener{
 			initialOrders.put(OrderIDcpy, CustomerOrder); //HashMap contains all the Info on Orders
 			ordersQueue.offer(OrderIDcpy); //This new order is on a queue
 		}
-		//else { Notify the Inventory Subsystem}
+		else{
+			System.out.println("Required Items and Quantities not present for the OrderID: " + OrderIDcpy);
+		}
 	}
 
 
