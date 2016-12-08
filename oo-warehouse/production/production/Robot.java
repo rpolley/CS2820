@@ -13,6 +13,7 @@ public class Robot extends RobotScheduler {
 	boolean atCharger = false;
 	//if it arrives at picker or something
 	boolean arrivedatDestination=false;
+	Shelf carrying;
 	/*
 	 * does what 'part1' used to, I think
 	 * not even 100% sure what it does
@@ -147,5 +148,9 @@ public class Robot extends RobotScheduler {
 	*/
 	public int getCol(){
 		return this.col;
+	}
+
+	public Shelf getShelf() {
+		return carrying;
 	}
 }
