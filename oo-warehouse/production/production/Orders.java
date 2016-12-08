@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class Orders implements FrameListener{
 
-	//All the below are Instance variables.
+	
 	HashMap<Integer, order> initialOrders;
 	HashMap<Integer, Integer> remainingOrderItems;
 	Queue<Integer> ordersQueue; //LinkedList and the Integer is the OrderID
@@ -22,6 +22,10 @@ public class Orders implements FrameListener{
 	private Floor F;
 	private Point P;
 	boolean pickerNotification=false;
+	//for testing
+	HashMap<String,Integer> order1 = new HashMap<String,Integer>();
+	HashMap<String,Integer> order2 = new HashMap<String,Integer>();
+	HashMap<String,Integer> order3 = new HashMap<String,Integer>();
 
 
 	/**
@@ -37,6 +41,30 @@ public class Orders implements FrameListener{
 		ordersQueue = new LinkedList<Integer>(); // Contains only the OrderID
 		remainingOrderItems = new HashMap<Integer, Integer>();
 		//F = new Floor(10,10,1);
+		//for testing
+		order1.put("A",25);
+    	order1.put("Y", 11);
+    	order1.put("B",15);
+    	order1.put("C",14 );
+    	order1.put("D",3);
+    	order1.put("G",2 );
+    	
+    	order2.put("H",41); //41 Quantities out of 50
+    	order2.put("I",34);
+    	order2.put("J",12);
+    	order2.put("K",1);
+    	order2.put("L",19);
+    	
+    	order3.put("H",10); //H should have already been reduced to 9 Qty from order2
+    	order3.put("I",34);
+    	order3.put("J",12);
+    	order3.put("K",1);
+		initialOrders.put(101, new order(101, order1, "Iowa"));
+		initialOrders.put(110, new order(110, order2, "California"));
+		initialOrders.put(111, new order(111, order3, "Toronto"));
+		ordersQueue.add(101);
+		ordersQueue.add(110);
+		ordersQueue.add(111);
 	}
 
         public void onFrame(){
