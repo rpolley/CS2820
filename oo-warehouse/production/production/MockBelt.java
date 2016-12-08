@@ -38,7 +38,6 @@ public class MockBelt implements Belt{
 		for(Bin bin:bins){
 			bin.move();
 		}
-		pi.processItems();
 		pa.processItems();
 	}
 	public boolean binAvailable(){

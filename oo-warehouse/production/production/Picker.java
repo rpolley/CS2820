@@ -30,7 +30,9 @@ public class Picker extends PickerSpace implements FrameListener{
 	}
 	
 	public void processItem(String itemName) {
-		i.removeItem(itemName, 1);		
+		i.removeItem(itemName, 1);
+		MockBelt b = Master.master.getFloor().getBelt();
+		b.getBins().add(new Bin(b));
 	}
 	public void addOrder(String item, int shelfid){
 		
