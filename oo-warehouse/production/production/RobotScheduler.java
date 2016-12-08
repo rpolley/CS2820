@@ -1,6 +1,7 @@
 package production;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.ArrayList;
 
@@ -172,8 +173,15 @@ public class RobotScheduler implements FrameListener {// implements Time
 		if (i.state == 0) {
 			moveRobot(i, locid[0], locid[1]);
 			// or onFrame();
-			if (i.col == locid[0] && Master.master.getFloor().GetHeight()-i.row == locid[1])
+			if (i.col == locid[0] && Master.master.getFloor().GetHeight()-i.row == locid[1]){
 				i.hasShelves = true;
+				List<Shelf> shelves = Master.master.getFloor().ShelfList;
+				for(Shelf shelf:shelves){
+					if(shelf.HomeRow==i.row&&shelf.HomeCol==i.col){
+						i.carrying = shelf;
+					}
+				}
+			}
 		}
 		// moving to the belts
 		else if (i.state == 1) {

@@ -1,6 +1,8 @@
 package production;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -9,20 +11,30 @@ import java.util.ArrayList;
  */
 public class Picker extends PickerSpace implements FrameListener{
 	private ArrayList<Point> beltarea;
+	private Inventory i;
+	Map<Integer, String> orders;
 	public Picker(ArrayList<Point> beltarea, int row, int col){
 		super(row,col);
-		this.beltarea = beltarea; 		
+		this.beltarea = beltarea;
+		i = Master.master.getInventory();
+		orders = new HashMap<Integer,String>();
 	}
 	
 	public void onFrame(){
-		if(Master.master.getRobotScheduler().closestRobot(row, col).arrivedatDestination){
-			processItems();
+		Robot r = Master.master.getRobotScheduler().closestRobot(row, col);
+		if(r.arrivedatDestination){
+			Shelf s = r.getShelf();
+			String item = orders.get(s.id);
+			processItem(item);
 		}
 	}
 	
-	public void processItems() {
-		// TODO Auto-generated method stub
+	public void processItem(String itemName) {
+		i.removeItem(itemName, 1);
+		MockBelt b = Master.master.getFloor().getBelt();
+		b.getBins().add(new Bin(b));
+	}
+	public void addOrder(String item, int shelfid){
 		
 	}
-
 }
