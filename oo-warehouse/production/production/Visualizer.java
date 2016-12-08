@@ -55,8 +55,7 @@ public class Visualizer {
 		initialSetup = new HashMap<int[],JLabel>();
 		belt = floor.getBelt();
 		bins = belt.getBins();
-		//bins = new PriorityQueue<Bin>();
-		//bins.add(new Bin(belt));
+		//bins.add(new Bin(belt)); <-- Uncomment to test with a bin in the queue
 		preMovePositions = new ArrayList<int[]>();
 		
 		window = new JFrame("Warehouse Visualizer");
@@ -241,8 +240,13 @@ public class Visualizer {
     		r.move(r.row+1,r.col);
     	}
     */
-    	
-    	
+    
+    //Uncomment to test a moving bin	
+    /*	
+    for(Bin b : bins){
+    	b.move();
+    }
+    */
     	
     }
     
