@@ -118,7 +118,11 @@ public class RobotScheduler implements FrameListener {// implements Time
 		// trying to figure out a way to get around
 		int check = 0;
 		if (toLocationX == robotx && toLocationY == roboty) {
+			if(i.state==1){
+				i.arrivedatDestination=true;
+			}
 			i.state++;
+			
 		}
 		if (toLocationX - robotx < 0) {
 			i.move(robotx - 1, roboty);
@@ -177,6 +181,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 		} else if (i.state == 2) {
 			moveRobot(i, locid[0], locid[1]);
 		} else {
+			i.arrivedatDestination =false;
 			i.inUse = false;
 			i.state = 0;
 
