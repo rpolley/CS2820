@@ -36,12 +36,17 @@ public class MockBelt implements Belt{
 	
 	public void tick(int count){
 		for(Bin bin:bins){
-			//bin.move();
+			bin.move();
 		}
 		pa.processItems();
 	}
 	public boolean binAvailable(){
-		return true;
+		if(bins.size()>0&&bins.peek().atEnd()){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	@Override
