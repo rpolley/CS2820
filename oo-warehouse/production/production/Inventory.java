@@ -22,22 +22,24 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class Inventory {
-        int capacity;
+    int capacity;
 	boolean isExist;
 	//boolean isInList;
 	int amount;
         //the amount of the item
 	List<Map<String, Object>> inventory = new ArrayList<Map<String, Object>>();
-        Map<Integer, Integer> shelfinfo = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> shelfinfo = new HashMap<Integer, Integer>();
         //List<Map<Integer,Integer>> shelflist = new ArrayList<Map<Integer, Integer>>();
-
+    HashMap<Integer, int[]> shelfposition;
+        
     public Inventory(List inventory){
         //this.shelflist = new ArrayList;
+    	//Master.master.subscribe(this);
         this.inventory = inventory;
     }
 
 
-     /**This method read a txt file, with items information
+    /**This method read a txt file, with items information
       *then put into an arraylist, each element is an item
       *each item has name, amount, existence, shelf, point,...blablabla...
       *
@@ -46,6 +48,7 @@ public class Inventory {
       */
     public void data(){
     	BufferedReader br = null;
+    	//shelfposition.put(1,());
 		try
 		{      //read file from the path, when testing change path to "list1.txt"
 			br = new BufferedReader(new FileReader("C:\\Users\\gaofa\\Desktop\\list1.txt"));
@@ -101,7 +104,7 @@ public class Inventory {
 		}
     }
 	
-    /**
+   /**
      * This method read the shelf id and each shelf's remaining capacity(50 - current item amount)
      * then put the id and its amount into a Hashmap
      * 
@@ -139,6 +142,29 @@ public class Inventory {
     }
             
             
+    /**
+     * This method gives shelf id by inputing item name.
+     *
+     * @param itemName
+     * @return
+     */
+    public int readPosition(String itemName){
+    	int i;
+    	//String readpos = "";
+    	int a = 0;
+    	for (i = 0; i < inventory.size(); i++)
+		{
+    		Map<String, Object> newItem = new HashMap<String, Object>();
+    		newItem = inventory.get(i);
+			if (itemName.equals(newItem.get("Name").toString())){
+				  a = Integer.parseInt((String) newItem
+						.get("Shelf#"));
+			}
+		}
+    	System.out.println(a);
+    	return a;
+
+    }
             
    /**
      * use Point class to get the position of the item,
@@ -148,7 +174,7 @@ public class Inventory {
      * @param itemName
      * @return Point(position of the item)
      */
-    public Point readPosition(String itemName){
+    public Point getshelfPosition(String itemName){
 
     	int i;
     	String pos = "";
@@ -180,9 +206,9 @@ public class Inventory {
          * check existence with Qty
     	 * if exist isExist is true
     	 * else false
-	 * @author Fan Gao
+	     * @author Fan Gao
          * @param itemName
-	 * @param Qty
+	     * @param Qty
          * @return boolean, if the item's Amount <= qty, return false; 
          *                  else, return true
          *
@@ -220,7 +246,7 @@ public class Inventory {
     }
 
      
-      /**This method can remove item from the inventory
+     /**This method can remove item from the inventory
        *first check if the item is in stock
        *if not exist, say not found
        *if exist, let the item's amount - qty
@@ -242,13 +268,17 @@ public class Inventory {
         		
     			if (itemName.equals(removedItem.get("Name").toString())){
     				int a = Integer.parseInt((String) removedItem.get("Amount"));
-    				removedItem.put("Amount",a- Qty);
+    				removedItem.put("Amount", a- Qty);
     				
     				if (a-Qty < 1){
     					removedItem.put("Existence","N");
     				}
     			}
     		}
+        	//remove request
+        	//int[] li = {2,3,4,5};
+        	//RobotScheduler.addRequest(li);
+        	
     	}
     	else{
             System.out.println("Item "+ itemName + " is not avaible.");
@@ -266,7 +296,7 @@ public class Inventory {
     }
 
 	
-     /**This method add item to inventory
+    /**This method add item to inventory
       *if item already in inventory, amount + qty
       *if not in list, make new item id, let amount = qty
       * //new added item//
@@ -300,7 +330,7 @@ public class Inventory {
         }
         //System.out.println(max);
         
-        
+        //get the last shelf in using
         for (Map.Entry<Integer, Integer> m :b.readshelf().entrySet())  {  
            if ( m.getKey()> lastshelf){
                 lastshelf = m.getKey();
@@ -339,6 +369,7 @@ public class Inventory {
     		newItem.put("Existence","Y");
                 if (Qty <= max){
                     newItem.put("Shelf#",keys);
+                    //newItem.put("Position", "("+ readPosition(itemName).row+","+readPosition(itemName).col+")");
                 }
                 else{
                     newItem.put("Shelf#",lastshelf+1);
@@ -350,7 +381,7 @@ public class Inventory {
     } 
 
 	
-     /** This method write the modified inventory list into a new file.txt
+    /** This method write the modified inventory list into a new file.txt
       * output a new file with refreshed list
       *
       * @param nothing, but write all the "inventory" into a new file
@@ -383,7 +414,7 @@ public class Inventory {
 		}
     }
 
-    /**main method to test for inventory
+   /**main method to test for inventory
      *
      * @param args
      */
@@ -403,9 +434,9 @@ public class Inventory {
         
 	a.removeItem("K",4);
         a.removeItem("Shoe", 2);
-        a.readPosition("A");
-        a.readPosition("G");
-       
+        a.getshelfPosition("A");
+        a.getshelfPosition("G");
+         a.readPosition("C");
         
 	}
 }
