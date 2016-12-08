@@ -41,6 +41,7 @@ public class Orders implements FrameListener{
 		ordersQueue = new LinkedList<Integer>(); // Contains only the OrderID
 		remainingOrderItems = new HashMap<Integer, Integer>();
 		I = Master.master.getInventory();
+		RS = Master.master.getRobotScheduler();
 		//F = new Floor(10,10,1);
 		//for testing
 		order1.put("A",25);
@@ -86,9 +87,10 @@ public class Orders implements FrameListener{
         			return;
         		}
         		else{
-        			Point shelfPosition = itemShelfLoc(currentOrder, numOfRemainingItems-1);
-        			Point pickerStation = new Point(9,2); //Hardcoding it for Demo
-        			RS.addRequest(shelfPosition, pickerStation);
+        			//Point shelfPosition = itemShelfLoc(currentOrder, numOfRemainingItems-1);
+        			Point start = new Point(3,3);
+        			Point pickerStation = new Point(4,5); //Hardcoding it for Demo
+        			RS.addRequest(start, pickerStation);
         			Integer updateRemItems = numOfRemainingItems-1;
         			remainingOrderItems.put(OrderID, updateRemItems);
         			return;
@@ -192,7 +194,7 @@ public class Orders implements FrameListener{
 	public void prepareForNextOrder(int nextOrderID, HashMap<Integer, Integer>remainingOrderItems){
 		order customerOrder = initialOrders.get(nextOrderID);
 		customerOrder.updateStatus("In Progress");
-		int orderSize = customerOrder.getNumberOfItems();
+		Integer orderSize = customerOrder.getNumberOfItems();
 		remainingOrderItems.put(nextOrderID, orderSize);
 	}
 	
