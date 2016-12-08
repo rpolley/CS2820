@@ -65,6 +65,7 @@ public class Orders implements FrameListener{
         	}
            if (orderStatus.matches("Arrived")==true){
         	   prepareForNextOrder(OrderID, remainingOrderItems);
+        	   return;
            }
 
         }
