@@ -155,27 +155,7 @@ public class Visualizer {
     		}
     	}
     	
-    	for(Bin b : bins){
-    		int[] binCoordinates = {b.getPosition().row,b.getPosition().col};
-    		for(int[] c : floorCoords){
-    			if(Arrays.equals(binCoordinates,c)){
-    				JLabel oldLabel = labelGrid.get(c);
-    	    		if(b.atStart()){
-    	    			oldLabel.setIcon(emptyBinIcon);
-    	    			System.out.println("Empty bin at: [" + binCoordinates[0] + "," + binCoordinates[1] + "]" );
-    	    		}else if(b.atEnd()){
-    	    			oldLabel.setIcon(packageIcon);
-    	    			System.out.println("Package at: [" + binCoordinates[0] + "," + binCoordinates[1] + "]" );
-    	    		}else{
-    	    			oldLabel.setIcon(fullBinIcon);
-    	    			System.out.println("Full bin at: [" + binCoordinates[0] + "," + binCoordinates[1] + "]" );
-    	    		}
-    				
-    	    		
-    			}
-    		}
-    	}
-    	
+    	    	
     	//returns the tile that the robot moved from back to its original icon
     	for(int[] pos : preMovePositions){
     		//System.out.println("Last Tick there was a robot at: [" + pos[0] + "," + pos[1] + "]");
