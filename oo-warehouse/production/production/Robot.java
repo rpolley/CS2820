@@ -18,7 +18,7 @@ public class Robot extends RobotScheduler {
 	 * does what 'part1' used to, I think
 	 * not even 100% sure what it does
 	 */
-	int state = 2;
+	int state = 0;
 /**
  * This just puts new robots down
  * @param startingx
