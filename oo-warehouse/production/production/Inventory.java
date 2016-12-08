@@ -51,7 +51,7 @@ public class Inventory {
     	//shelfposition.put(1,());
 		try
 		{      //read file from the path, when testing change path to "list1.txt"
-			br = new BufferedReader(new FileReader("C:\\Users\\gaofa\\Desktop\\list1.txt"));
+			br = new BufferedReader(new FileReader("production/list1.txt"));
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
@@ -103,7 +103,6 @@ public class Inventory {
 			e.printStackTrace();
 		}
     }
-	
 	
    /**
      * This method read the shelf id and each shelf's remaining capacity(50 - current item amount)
@@ -162,11 +161,11 @@ public class Inventory {
 						.get("Shelf#"));
 			}
 		}
-    	//System.out.println(a);
+    	System.out.println(a);
     	return a;
+
     }
-        
-	
+            
    /**
      * use Point class to get the position of the item,
      * input the itemName, then get the position
@@ -415,7 +414,6 @@ public class Inventory {
 		}
     }
 
-	
    /**main method to test for inventory
      *
      * @param args
@@ -438,7 +436,7 @@ public class Inventory {
         a.removeItem("Shoe", 2);
         a.getshelfPosition("A");
         a.getshelfPosition("G");
-        a.readPosition("C");
+         a.readPosition("C");
         
 	}
 }

@@ -40,6 +40,7 @@ public class Orders implements FrameListener{
 		initialOrders  = new HashMap<Integer,order>(); //Contains OrderID and other order class Details
 		ordersQueue = new LinkedList<Integer>(); // Contains only the OrderID
 		remainingOrderItems = new HashMap<Integer, Integer>();
+		I = Master.master.getInventory();
 		//F = new Floor(10,10,1);
 		//for testing
 		order1.put("A",25);
