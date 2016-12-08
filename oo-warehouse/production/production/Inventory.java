@@ -188,8 +188,8 @@ public class Inventory {
 				  }
 				
 				else{
-					  pos ="(0,0)"；				
-}
+					  pos ="(0,0)";			
+                                   }
 			}
 		}
     	
