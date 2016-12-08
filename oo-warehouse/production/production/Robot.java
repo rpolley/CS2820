@@ -72,6 +72,7 @@ public class Robot extends RobotScheduler {
 		}
 		else{
 			this.inUse=false; //was: inUse==false; 
+			this.state=-1;
 		}
 	}
 	// Makes sure to only move the robot 1 space at a time, and if it does only

@@ -81,6 +81,9 @@ public class RobotScheduler implements FrameListener {// implements Time
 		}
 		for (Robot q : RobotLocs.keySet()) {
 			if (q.inUse == false) {
+				if(RequestQueue.size()==0){
+					return;
+				}
 				locids = RequestQueue.remove();
 			}
 
@@ -89,7 +92,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 		if (i == null) {
 			return;
 		}
-		if (i.state == -1 || i.state== 3) {
+		if (i.state == -1 ) {
 			i.state = 0;
 		}
 		makeMoveDecision(i, locids);
@@ -123,10 +126,6 @@ public class RobotScheduler implements FrameListener {// implements Time
 		// trying to figure out a way to get around
 		int check = 0;
 		if (toLocationRow == robotrow && toLocationCol == robotcol) {
-			if (i.state == 1) {
-				i.arrivedatDestination = true;
-			}
-
 		}
 		if (toLocationCol - robotcol < 0) {
 			i.move(robotrow, robotcol - 1);
@@ -194,6 +193,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 		} // moving to the belts
 		else if (i.state == 1) {
 			if (i.row == locid[2] && i.col == locid[3]) {
+				i.arrivedatDestination = true;
 				i.state = 2;
 			} else {
 				moveRobot(i, locid[2], locid[3]);
@@ -202,6 +202,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 			if (i.row == locid[0] && i.col == locid[1]) {
 				i.state = 3;
 				i.carrying = null;
+				i.hasShelves=false;
 			} else {
 				moveRobot(i, locid[0], locid[1]);
 			}
@@ -211,10 +212,9 @@ public class RobotScheduler implements FrameListener {// implements Time
 				i.atCharger=true;
 			}
 			else{
-			moveRobot(i, charger.get(0).row, charger.get(1).col);
+			moveRobot(i, charger.get(0).row , charger.get(0).col);
 			}
 		}
-		
 		
 		else {
 			// resets robot
