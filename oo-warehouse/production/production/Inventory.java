@@ -183,7 +183,13 @@ public class Inventory {
     		Map<String, Object> newItem = new HashMap<String, Object>();
     		newItem = inventory.get(i);
 			if (itemName.equals(newItem.get("Name").toString())){
-				pos = newItem.get("Position").toString();
+				if (newItem.get("Position") != null) {
+				  pos = newItem.get("Position").toString();
+				  }
+				
+				else{
+					  pos ="(0,0)"；				
+}
 			}
 		}
     	
