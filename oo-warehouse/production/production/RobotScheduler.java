@@ -27,7 +27,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 	 *         initial locations so there is a void return.
 	 */
 	public void addRobots() {
-		Robot robo1 = new Robot(5, 4);
+		Robot robo1 = new Robot(5, 5);
 		int[] temp = new int[2];
 		temp[0] = robo1.row;
 		temp[1] = robo1.col;
@@ -55,11 +55,16 @@ public class RobotScheduler implements FrameListener {// implements Time
 	public HashMap<Integer, int[]> ShelvesLocs;
 	public HashMap<Robot, int[]> RobotLocs;
 
-	public void addRequest(int[] locations) { // or an int as to where the
+	public void addRequest(Point shelf, Point destination) { // or an int as to where the
 		// picker/packer is or where
 		// loading dock
 		// [ x of shelf, y of shelf, x of packer or loading dock, y of packer or
 		// loading dock]
+		int locations[]= new int[4];
+		locations[0]=shelf.col;
+		locations[1]=Master.master.getFloor().GetHeight() - shelf.row;
+		locations[2]=destination.col;
+		locations[3]=Master.master.getFloor().GetHeight()-destination.row;
 		RequestQueue.add(locations);
 	}
 
@@ -106,64 +111,68 @@ public class RobotScheduler implements FrameListener {// implements Time
 		int toLocationX = toX;
 		int toLocationY = toY;
 		// System.out.println(i.batterylife);
-		int robotx = i.row;
-		int roboty = i.col;
+		int robotx = i.col;
+		int roboty = Master.master.getFloor().GetHeight() - i.row;
 		// where we move the one robot to the shelve.
 		// for each tick of the interface
 		// trying to figure out a way to get around
 		int check = 0;
 		if (toLocationX == robotx && toLocationY == roboty) {
+			if(i.state==1){
+				i.arrivedatDestination=true;
+			}
 			i.state++;
+			
 		}
-		if (toLocationY - roboty < 0) {
-			i.move(robotx, roboty-1);
+		if (toLocationX - robotx < 0) {
+			i.move(robotx - 1, roboty);
 			// if it isnt a legal move, it wont move that means we can
 			// do
 			// something else
 			// System.out.println(RobotLocs.get(i)[0]+"yolo");
-			if (i.isLegalMove(robotx, roboty-1) == false) {
+			if (i.isLegalMove(robotx - 1, roboty) == false) {
 				check = 0;
 			} else {
 				check = 1;
 			}
-		} else if (toLocationY - roboty > 0) {
-			i.move(robotx , roboty +1);
-			if (i.isLegalMove(robotx , roboty+1) == false) {
+		} else if (toLocationX - robotx > 0) {
+			i.move(robotx + 1, roboty);
+			if (i.isLegalMove(robotx + 1, roboty) == false) {
 			} else {
 				check = 1;
 			}
 		}
 
-		if (check == 0 && toLocationX - robotx< 0) {
-			i.move(robotx-1, roboty);
+		if (check == 0 && toLocationY - roboty < 0) {
+			i.move(robotx, roboty - 1);
 			check = 1;
-		} else if (check == 0 && toLocationX - robotx > 0) {
-			i.move(robotx+1, roboty);
+		} else if (check == 0 && toLocationY - roboty > 0) {
+			i.move(robotx, roboty + 1);
 			check = 1;
 		}
 		if (check == 0) {
-			if (toLocationX - robotx < 0) {
-				i.move(robotx+1, roboty);
+			if (toLocationY - roboty < 0) {
+				i.move(robotx, roboty + 1);
 			} else {
-				i.move(robotx -1, roboty);
+				i.move(robotx, roboty - 1);
 			}
 		}
 
 		check = 0;
-		//System.out.println("Robot x loc " + robotx + " Robot y loc " + roboty);
-		//System.out.println("Shelf x loc " + toLocationX + " Shelf y loc " + toLocationY);
+		System.out.println("Robot x loc " + robotx + " Robot y loc " + roboty);
+		System.out.println("Shelf x loc " + toLocationX + " Shelf y loc " + toLocationY);
 	}
 
 	/**
 	 * in the process of making this tickable to go along with Master class
 	 */
 	public void makeMoveDecision(Robot i, int[] locid) {
-
+		
 		// moving to shelf
 		if (i.state == 0) {
 			moveRobot(i, locid[0], locid[1]);
 			// or onFrame();
-			if (i.row == locid[0] && i.col == locid[1])
+			if (i.col == locid[0] && Master.master.getFloor().GetHeight()-i.row == locid[1])
 				i.hasShelves = true;
 		}
 		// moving to the belts
@@ -172,6 +181,8 @@ public class RobotScheduler implements FrameListener {// implements Time
 		} else if (i.state == 2) {
 			moveRobot(i, locid[0], locid[1]);
 		} else {
+			//resets robot
+			i.arrivedatDestination =false;
 			i.inUse = false;
 			i.state = 0;
 
@@ -253,3 +264,4 @@ public class RobotScheduler implements FrameListener {// implements Time
 		return null;
 	}
 }
+
