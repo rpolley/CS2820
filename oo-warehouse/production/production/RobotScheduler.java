@@ -55,6 +55,7 @@ public class RobotScheduler implements FrameListener {// implements Time
 	// with [x,y] location as the int array.
 	public HashMap<Integer, int[]> ShelvesLocs;
 	public HashMap<Robot, int[]> RobotLocs;
+	private int[] locids = new int[4];
 
 	public void addRequest(Point shelf, Point destination) { // or an int as to where the
 		// picker/packer is or where
@@ -70,24 +71,20 @@ public class RobotScheduler implements FrameListener {// implements Time
 	}
 
 	public void onFrame() {
-		int[] locid = new int[4];
-		if (RequestQueue.isEmpty()) {
+		if (RequestQueue.isEmpty()&&(locids[0] == 0 && locids[1] == 0 && locids[2] == 0 && locids[3] == 0)) {
 			return;
 		}
 		for (Robot q : RobotLocs.keySet()) {
 			if (q.inUse == false) {
-				locid = RequestQueue.remove();
+				locids = RequestQueue.remove();
 			}
 
 		}
-		if (locid[0] == 0 && locid[1] == 0 && locid[2] == 0 && locid[3] == 0) {
-			return;
-		}
-		Robot i = closestRobot(locid[0], locid[1]);
+		Robot i = closestRobot(locids[0], locids[1]);
 		if (i == null) {
 			return;
 		}
-		makeMoveDecision(i, locid);
+		makeMoveDecision(i, locids);
 		moveCharger(i);
 	}
 
@@ -208,6 +205,9 @@ public class RobotScheduler implements FrameListener {// implements Time
 	 * @param i
 	 */
 	public void moveCharger(Robot i) {
+		if(i.batterylife>.03){
+			return;
+		}
 		if (i.inUse == false) {
 			return;
 		}
@@ -259,7 +259,6 @@ public class RobotScheduler implements FrameListener {// implements Time
 	 */
 	public Robot closestRobot(int x, int y) {
 		for (Robot i : RobotLocs.keySet()) {
-			if ((i.inUse == false)) {
 				if (i.getBatteryLife() < .1) {
 					i.inUse = true;
 					moveCharger(i);
@@ -267,7 +266,6 @@ public class RobotScheduler implements FrameListener {// implements Time
 				}
 				i.inUse = true;
 				return i;
-			}
 		}
 		return null;
 	}

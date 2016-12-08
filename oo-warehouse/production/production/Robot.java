@@ -83,7 +83,7 @@ public class Robot extends RobotScheduler {
 	 *
 	 */
 	public void move(int toX, int toY) {
-		if (((row - toX) + (col - toY) == 1) || ((row - toX) + (col - toY) == -1)) {
+		if (true||((row - toX) + (col - toY) == 1) || ((row - toX) + (col - toY) == -1)) {
 			if (isLegalMove(toX, toY)) {
 				// unfinished
 				int[] newloc = new int[2];
