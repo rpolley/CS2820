@@ -76,9 +76,6 @@ public class RobotScheduler implements FrameListener {// implements Time
 		if (RequestQueue.isEmpty() && (locids[0] == 0 && locids[1] == 0 && locids[2] == 0 && locids[3] == 0)) {
 			return;
 		}
-		if (locids[0] == 0 && locids[1] == 0 && locids[2] == 0 && locids[3] == 0) {
-			return;
-		}
 		for (Robot q : RobotLocs.keySet()) {
 			if (q.inUse == false) {
 				locids = RequestQueue.remove();
