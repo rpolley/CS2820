@@ -117,7 +117,7 @@ public class Orders implements FrameListener{
 		String[] items = customerOrder.getArrayOfItemNames();
 		String itemName = items[currentItemIndex];
 		Point fetchShelf;
-		fetchShelf = I.readPosition(itemName);
+		fetchShelf = I.getshelfPosition(itemName);
 		return fetchShelf;
 	}
 	
