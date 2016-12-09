@@ -171,7 +171,7 @@ public class Master {
 		this.robots = new RobotScheduler();
 		this.robots.addRobots();
 		this.inventory = new Inventory(initialInventory);
-		inventory.populate();
+		inventory.data();
 		this.orders = new Orders();
 		//initialize the floor in a 10 by 10 configuration with 1 robot
 		this.visualizer = new Visualizer();

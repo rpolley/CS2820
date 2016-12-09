@@ -188,7 +188,7 @@ public class Inventory {
 				  }
 				
 				else{
-					  pos ="(0,0)";			
+					  pos ="(3,3)";			
                                    }
 			}
 		}
@@ -395,8 +395,10 @@ public class Inventory {
       */
     public void outPutFile(){
     	try
-		{
-    	   PrintWriter pw = new PrintWriter(new File("C:\\Users\\gaofa\\Desktop\\list2.txt"));
+		{   
+    		
+    		//check test of inventory in list2.txt
+    	   PrintWriter pw = new PrintWriter(new File("production\\list2.txt"));
     	   pw.println("Id\tName\tAmount\tShelf#\tPosition\tExistence");
     	   String[] columnName = { "Id", "Name", "Amount", "Shelf#", "Position"};
 			int cIndex;
@@ -438,7 +440,7 @@ public class Inventory {
 	a.addItem("F",16);
         a.addItem("Ball",48);
         
-	a.removeItem("K",4);
+	a.removeItem("K",10);
         a.removeItem("Shoe", 2);
         a.getshelfPosition("A");
         a.getshelfPosition("G");
@@ -446,11 +448,12 @@ public class Inventory {
         
 	}
 
-
+/*
 public void populate() {
 	for(String s:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")){
 		System.out.println(s);
 		addItem(s,50);
 	}
 }
+*/
 }
