@@ -1,6 +1,5 @@
 package production;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -11,9 +10,9 @@ import java.util.ArrayList;
 public class Packer extends PackerSpace{
  	public  ArrayList<Point> beltarea;
  	
- 	public Packer(ArrayList<Point> beltarea, int row, int col){
+ 	public Packer(ArrayList<Point> beltLocs, int row, int col){
  		super(row, col);
-		this.beltarea = beltarea;
+		this.beltarea = beltLocs;
  	}
 	public void processItems() {
 		// TODO Auto-generated method stub
