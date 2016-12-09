@@ -34,7 +34,7 @@ public class Visualizer {
 	private static final ImageIcon chargerIcon = new ImageIcon("res/Charger.png");
 	private static final ImageIcon shelfZoneIcon = new ImageIcon("res/ShelfZone.png");
 	private static final ImageIcon robotIcon = new ImageIcon("res/Robot.png");
-	private static final ImageIcon robotShelfIcon = new ImageIcon("res/Robot.png");
+	private static final ImageIcon robotShelfIcon = new ImageIcon("res/RobotShelf.png");
 	private static final ImageIcon shelfIcon = new ImageIcon("res/Shelf.png");
 	private static final ImageIcon emptyBinIcon = new ImageIcon("res/EmptyBin.png"); //new icons
 	private static final ImageIcon fullBinIcon = new ImageIcon("res/FullBin.png");
