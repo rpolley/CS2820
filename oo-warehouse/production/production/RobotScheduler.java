@@ -28,6 +28,12 @@ public class RobotScheduler implements FrameListener {// implements Time
 	 * @return doesn't return anything, just creates the robots and sets them to
 	 *         initial locations so there is a void return.
 	 */
+	public boolean arrived(Robot i){
+		if(i.arrivedatDestination==true){
+			return true;
+		}
+		return false;
+	}
 	public void addRobots() {
 		Robot robo1 = new Robot(5, 5);
 		int[] temp = new int[2];
