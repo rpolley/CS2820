@@ -161,7 +161,7 @@ public class Inventory {
 						.get("Shelf#"));
 			}
 		}
-    	System.out.println(a);
+    	System.out.println("The item "+itemName +" is on the shelf No. " +a);
     	return a;
 
     }
@@ -201,7 +201,7 @@ public class Inventory {
     	
     	int x = Integer.parseInt(sx);
     	int y = Integer.parseInt(sy);
-    	//System.out.println(x);        //!!!!! just for test, print integer of row and col
+    	System.out.println("The item "+itemName +" is at location (" + x+","+y+")");        //!!!!! just for test, print integer of row and col
     	//System.out.println(y);
     	Point a = new Point(x,y);
     	return a;
@@ -428,32 +428,33 @@ public class Inventory {
      */
     public static void main(String[] args) {
 
-	List<Map<String, Object>> listA = new ArrayList<>();
-	 //add code here to read file and insert the item in to listA
+	    List<Map<String, Object>> listA = new ArrayList<>();
+	    //add code here to read file and insert the item in to listA
 
-	Inventory a = new Inventory(listA);
-	a.data();
+	    Inventory a = new Inventory(listA);
+	    a.data();
         
         
-	a.addItem("Z",25);
-	a.addItem("A",5);
-	a.addItem("F",16);
+	    a.addItem("Z",25);
+	    a.addItem("A",5);
+	    a.addItem("F",16);
         a.addItem("Ball",48);
         
-	a.removeItem("K",10);
+	    a.removeItem("K",10);
         a.removeItem("Shoe", 2);
         a.getshelfPosition("A");
         a.getshelfPosition("G");
-         a.readPosition("C");
+        a.readPosition("S");
         
 	}
 
-/*
-public void populate() {
-	for(String s:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")){
+//for other test use
+  public void populate() {
+	  for(String s:"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")){
 		System.out.println(s);
 		addItem(s,50);
-	}
-}
-*/
+	  }
+  }
+
+
 }
