@@ -118,13 +118,13 @@ public class Orders implements FrameListener{
 		int OrderIDcpy = OrderID;
 		order CustomerOrder = new order (OrderID, itemAndQty, address);
 		 //if (verifyOrderItems == true){ // then proceed with generating new Order.
-		//if(verifyOrderItems(CustomerOrder)==true){
+		if(verifyOrderItems(CustomerOrder)==true){
 			initialOrders.put(OrderIDcpy, CustomerOrder); //HashMap contains all the Info on Orders
 			ordersQueue.offer(OrderIDcpy); //This new order is on a queue
-		//}
-		//else{
-			//System.out.println("Required Items and Quantities not present for the OrderID: " + OrderIDcpy);
-		//}
+		}
+		else{
+			System.out.println("Required Items and Quantities not present for the OrderID: " + OrderIDcpy);
+		}
 	}
 
 
@@ -190,8 +190,15 @@ public class Orders implements FrameListener{
 		return fetchShelf;
 	}
 	
-	//Point destination;
-
+	
+	    /**
+	     * @author Chaitanya Kovuri
+         * @param nextOrderID,
+         * @param remainingOrderItems
+         * prepares for the next order.
+         * 
+         *
+	    */
 	public void prepareForNextOrder(int nextOrderID, HashMap<Integer, Integer>remainingOrderItems){
 		order customerOrder = initialOrders.get(nextOrderID);
 		customerOrder.updateStatus("In Progress");
